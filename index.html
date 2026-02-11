@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CODE-ST</title>
+  <meta name="description" content="CODE-ST のシンプルなサンプルサイトです。" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="#top">CODE-ST</a>
+      <nav aria-label="サイト内ナビゲーション">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#works">Works</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="container">
+      <div class="hero">
+        <h1>シンプルなサンプルサイト</h1>
+        <p>画像なしで構造を整えたHTML/CSSの雛形です。</p>
+      </div>
+
+      <section id="about">
+        <h2 class="sec-title">About</h2>
+        <p class="lead">ここに自己紹介や対応範囲を記載します。</p>
+        <ul class="about-list">
+          <li>対応：HTML / CSS（静的サイト）</li>
+          <li>意識：読みやすい構造、保守しやすい命名</li>
+          <li>用途：ポートフォリオ用のサンプル</li>
+        </ul>
+      </section>
+
+      <section id="works">
+        <h2 class="sec-title">Works</h2>
+        <p class="lead">画像の代わりにカードで表示しています。</p>
+        <div class="grid">
+          <article class="card">
+            <h3>サンプル1</h3>
+            <p>トップ→下層への導線を想定した構成です。</p>
+          </article>
+          <article class="card">
+            <h3>サンプル2</h3>
+            <p>セクション設計と余白設計を重視しています。</p>
+          </article>
+          <article class="card">
+            <h3>サンプル3</h3>
+            <p>後から画像を差し替えられる前提の枠です。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="news">
+        <h2 class="sec-title">News</h2>
+        <dl class="news">
+          <div>
+            <dt>2026-02-11</dt>
+            <dd>GitHub Pagesの公開準備を開始しました。</dd>
+          </div>
+          <div>
+            <dt>2026-02-10</dt>
+            <dd>HTML/CSSの構成を見直しました。</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="contact">
+        <h2 class="sec-title">Contact</h2>
+        <p class="lead">フォームはダミーです（送信は行われません）。</p>
+
+        <form action="#" method="post">
+          <dl>
+            <dt><label for="name">氏名</label></dt>
+            <dd><input id="name" name="name" type="text" autocomplete="name" /></dd>
+
+            <dt><label for="email">メール</label></dt>
+            <dd><input id="email" name="email" type="email" autocomplete="email" /></dd>
+
+            <dt><label for="message">内容</label></dt>
+            <dd><textarea id="message" name="message"></textarea></dd>
+          </dl>
+
+          <button class="btn" type="submit">送信</button>
+        </form>
+      </section>
+
+      <footer>
+        <div class="container">
+          <small>© CODE-ST</small>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+</body>
+</html>
