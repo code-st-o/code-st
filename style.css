@@ -1,239 +1,142 @@
-/* ===== Corporate polish (override) ===== */
-
-:root{
-  --w: 1040px;
-  --bg: #ffffff;
-  --fg: #0f172a;     /* slate-900 */
-  --muted:#475569;   /* slate-600 */
-  --line:#e2e8f0;    /* slate-200 */
-  --soft:#f8fafc;    /* slate-50 */
-  --brand:#2563eb;   /* blue-600 */
-  --brand2:#1d4ed8;  /* blue-700 */
-  --radius: 14px;
+/* ------------------------------
+   RESET
+------------------------------ */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
-
-*{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; }
 
 body{
-  margin:0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
-  color:var(--fg);
-  background:var(--bg);
-  line-height:1.75;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
+  "Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  line-height:1.7;
+  color:#1f2937;
+  background:#f8fafc;
 }
 
-/* Layout */
+/* ------------------------------
+   LAYOUT
+------------------------------ */
 .container{
-  max-width: var(--w);
-  margin: 0 auto;
-  padding: 0 20px;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 24px;
 }
 
+/* ------------------------------
+   HEADER
+------------------------------ */
 header{
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  background:#ffffff;
+  border-bottom:1px solid #e5e7eb;
 }
 
 .header-inner{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding: 14px 0;
+  align-items:center;
+  padding:18px 0;
 }
 
 .brand{
-  font-weight: 800;
-  letter-spacing: .02em;
+  font-weight:700;
+  font-size:18px;
   text-decoration:none;
-  color:var(--fg);
+  color:#111827;
 }
 
-/* Nav */
 nav ul{
-  list-style:none;
   display:flex;
-  gap: 18px;
-  padding:0;
-  margin:0;
+  list-style:none;
+  gap:28px;
 }
 
 nav a{
   text-decoration:none;
-  color:var(--muted);
-  font-weight: 600;
-  font-size: 14px;
+  color:#374151;
+  font-size:14px;
 }
 
 nav a:hover{
-  color:var(--fg);
+  color:#2563eb;
 }
 
-/* Hero */
+/* ------------------------------
+   HERO
+------------------------------ */
 .hero{
-  padding: 92px 0 56px;
-  border-bottom: 1px solid var(--line);
-  background:
-    radial-gradient(1200px 400px at 50% -10%, rgba(37,99,235,.18), transparent 60%),
-    linear-gradient(#fff, #fff);
+  padding:120px 24px;
+  text-align:center;
+  background:linear-gradient(180deg,#eef2ff,#ffffff);
 }
 
 .hero h1{
-  margin: 0 0 10px;
-  font-size: 44px;
-  line-height: 1.15;
-  letter-spacing: -.02em;
+  font-size:40px;
+  font-weight:800;
+  margin-bottom:20px;
 }
 
 .hero p{
-  margin: 0;
-  color: var(--muted);
-  font-size: 16px;
-  max-width: 62ch;
+  font-size:18px;
+  color:#6b7280;
+  margin-bottom:30px;
 }
 
-/* Section */
-section{
-  padding: 56px 0;
-}
-
-.sec-title{
-  font-size: 22px;
-  margin: 0 0 14px;
-  letter-spacing: -.01em;
-}
-
-.lead{
-  margin: 0 0 18px;
-  color: var(--muted);
-}
-
-/* Cards (Works / News / etc.) */
-.card{
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px;
-  background: #fff;
-  box-shadow: 0 10px 30px rgba(2,6,23,.05);
-}
-
-.card:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgba(2,6,23,.08);
-}
-
-.card h3{
-  margin: 0 0 6px;
-  font-size: 16px;
-}
-
-.card p{
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-/* Buttons (if you have any links like .btn) */
-.btn, button, input[type="submit"]{
-  appearance:none;
-  border: 0;
-  background: var(--brand);
-  color:#fff;
-  padding: 12px 16px;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor:pointer;
-}
-
-.btn:hover, button:hover, input[type="submit"]:hover{
-  background: var(--brand2);
-}
-
-/* Footer */
-footer{
-  border-top: 1px solid var(--line);
-  padding: 22px 0;
-  color: var(--muted);
-  font-size: 13px;
-  background: var(--soft);
-}
-
-/* Responsive */
-@media (max-width: 720px){
-  .header-inner{ gap: 10px; }
-  nav ul{ gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
-  .hero{ padding: 64px 0 40px; }
-  .hero h1{ font-size: 32px; }
-}
-
-/* --- hero tune --- */
-/* --- hero balance fix --- */
-.hero{
-  padding: 80px 24px;   /* 余白を整える */
-}
-
-.hero h1{
-  max-width: none;      /* 変な折り返しを防ぐ */
-  line-height: 1.2;
-}
-
-.hero p{
-  max-width: none;      /* 変な折り返しを防ぐ */
-}
-
-.hero .btn{
-  display: inline-block;
-  margin-top: 18px;
-}
-
-
-
-.hero .btn{
-  display: inline-block;
-  padding: 12px 28px;
-  background: #111827;
-  color: #fff;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.hero .btn:hover{
-  background: #1e40af;
-}
-
-
-/* --- hero center --- */
-.hero{
-  text-align: center;
-}
-
-.hero .btn{
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* --- button redesign --- */
+/* ------------------------------
+   BUTTON
+------------------------------ */
+/* ------------------------------
+   BUTTON（黒系に統一）
+------------------------------ */
 .btn{
-  background: #111827;        /* ほぼ黒：締まる */
-  color: #fff;
-  border-radius: 999px;       /* 丸み強め */
-  padding: 14px 22px;
-  font-weight: 700;
-  letter-spacing: .02em;
-  box-shadow: 0 10px 22px rgba(17,24,39,.18);
-  border: 1px solid rgba(17,24,39,.15);
-  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  display:inline-block;
+  padding:16px 36px;
+  background:linear-gradient(135deg,#111827,#0b1220);
+  color:#fff;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:700;
+  letter-spacing:.02em;
+  box-shadow:0 14px 32px rgba(17,24,39,.22);
+  border:1px solid rgba(255,255,255,.08);
+  transition:all .2s ease;
 }
 
 .btn:hover{
-  background: #0b1220;
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(17,24,39,.24);
+  transform:translateY(-3px);
+  box-shadow:0 20px 40px rgba(17,24,39,.28);
+  background:linear-gradient(135deg,#0b1220,#111827);
 }
 
+
+/* ------------------------------
+   SECTION
+------------------------------ */
+section{
+  padding:80px 24px;
+}
+
+h2{
+  font-size:26px;
+  margin-bottom:24px;
+}
+
+ul{
+  padding-left:20px;
+}
+
+li{
+  margin-bottom:8px;
+}
+
+/* ------------------------------
+   FOOTER
+------------------------------ */
+footer{
+  text-align:center;
+  padding:40px 0;
+  background:#111827;
+  color:#ffffff;
+  margin-top:60px;
+}
