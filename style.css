@@ -169,3 +169,71 @@ footer{
   .hero{ padding: 64px 0 40px; }
   .hero h1{ font-size: 32px; }
 }
+
+/* --- hero tune --- */
+/* --- hero balance fix --- */
+.hero{
+  padding: 80px 24px;   /* 余白を整える */
+}
+
+.hero h1{
+  max-width: none;      /* 変な折り返しを防ぐ */
+  line-height: 1.2;
+}
+
+.hero p{
+  max-width: none;      /* 変な折り返しを防ぐ */
+}
+
+.hero .btn{
+  display: inline-block;
+  margin-top: 18px;
+}
+
+
+
+.hero .btn{
+  display: inline-block;
+  padding: 12px 28px;
+  background: #111827;
+  color: #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.hero .btn:hover{
+  background: #1e40af;
+}
+
+
+/* --- hero center --- */
+.hero{
+  text-align: center;
+}
+
+.hero .btn{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- button redesign --- */
+.btn{
+  background: #111827;        /* ほぼ黒：締まる */
+  color: #fff;
+  border-radius: 999px;       /* 丸み強め */
+  padding: 14px 22px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  box-shadow: 0 10px 22px rgba(17,24,39,.18);
+  border: 1px solid rgba(17,24,39,.15);
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.btn:hover{
+  background: #0b1220;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(17,24,39,.24);
+}
+
