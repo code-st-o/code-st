@@ -394,7 +394,7 @@ section { scroll-margin-top: 90px; }
   inset: 0;
   z-index: 0;
 
-  background-image: url("images/hero.jpg"); /* ★背景画像パス */
+  background-image: url("about-bg.jpg"); /* ★背景画像パス */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
