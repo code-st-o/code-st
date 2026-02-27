@@ -1,6 +1,8 @@
 /* =========================
    CODE-ST style.css（全差し替え）
    背景固定 + ガラスパネル（重なり）デザイン
+   + Hero位置調整
+   + About固定背景（パララックス風）
    ========================= */
 
 /* ---- Reset / Base ---- */
@@ -112,13 +114,41 @@ main#top{
   padding-top: 74px; /* header高さ分 */
 }
 
+/* ---- Section base (ガラスパネルで“重なり”) ---- */
+section{
+  margin: 26px 0;
+  padding: 36px 30px;
+  border-radius: 24px;
+  background: rgba(10, 14, 24, .42);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* セクション見出し */
+.sec-title{
+  margin: 0 0 10px;
+  font-size: 22px;
+  letter-spacing: .06em;
+}
+
+.lead{
+  margin: 0 0 18px;
+  color: rgba(233,238,247,.82);
+}
+
 /* ---- Hero ---- */
 .hero{
+  /* section共通 margin(26px) と縦センター寄せを打ち消す */
+  margin-top: 0;
   min-height: calc(100vh - 74px);
   display: grid;
-  align-content: center;
+  align-content: start;
   gap: 18px;
-  padding: 42px 0 26px;
+  padding: 24px 0 26px; /* 上の余白を調整 */
 }
 
 .hero h1{
@@ -171,46 +201,9 @@ main#top{
   background: rgba(255,255,255,.10);
 }
 
-/* Heroのボタン並び（必要なら） */
+/* Heroのボタン並び */
 .hero .btn + .btn{
   margin-left: 10px;
-}
-
-/* ---- Section base (ガラスパネルで“重なり”) ---- */
-section{
-  margin: 26px 0;
-  padding: 36px 30px;
-  border-radius: 24px;
-  background: rgba(10, 14, 24, .42);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow:
-    0 18px 40px rgba(0,0,0,.35),
-    inset 0 1px 0 rgba(255,255,255,.06);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-/* セクション見出し */
-.sec-title{
-  margin: 0 0 10px;
-  font-size: 22px;
-  letter-spacing: .06em;
-}
-
-.lead{
-  margin: 0 0 18px;
-  color: rgba(233,238,247,.82);
-}
-
-/* About */
-.about-list{
-  margin: 0;
-  padding-left: 18px;
-  color: rgba(233,238,247,.88);
-}
-
-.about-list li{
-  margin: 6px 0;
 }
 
 /* ---- Works ---- */
@@ -385,3 +378,41 @@ body { overflow-x: hidden; }
 
 /* 固定ヘッダー分だけアンカー位置をずらす */
 section { scroll-margin-top: 90px; }
+
+/* =========================
+   About：固定背景（パララックス風）
+   HTMLはそのまま（section-bg / bg-layer / section-inner を利用）
+   ========================= */
+
+.section-bg{
+  position: relative;
+  overflow: hidden;
+}
+
+.section-bg .bg-layer{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background-image: url("images/hero.jpg"); /* ★背景画像パス */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  /* 暗幕（読みやすさ） */
+  background-color: rgba(0,0,0,.35);
+  background-blend-mode: multiply;
+}
+
+.section-bg .section-inner{
+  position: relative;
+  z-index: 1;
+}
+
+/* iPhone対策 */
+@media (max-width: 768px){
+  .section-bg .bg-layer{
+    background-attachment: scroll;
+  }
+}
