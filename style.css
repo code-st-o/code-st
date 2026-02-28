@@ -1,9 +1,10 @@
 /* =========================
-   CODE-ST style.css（全書き直し）
-   - 背景グラデーション（bodyに固定）
-   - ガラスカードは .section だけに適用（section全体には適用しない）
-   - Hero上寄せ
-   - Aboutは背景画像を全面表示（カード化しない）
+   CODE-ST style.css（全通し・完全版）
+   - 背景グラデーション（body固定）
+   - ガラスカードは基本 .section に適用
+   - ただし About（#about.section-bg）はカード化しない（背景画像を全面）
+   - Heroは上寄せ（下に落ちない）
+   - スマホで壊れる background-attachment: fixed は使わない
    ========================= */
 
 /* ---- Reset / Base ---- */
@@ -28,7 +29,7 @@ a { color: inherit; }
 a:visited { color: inherit; }
 a:hover { opacity: .92; }
 
-/* ---- Global fixed background (behind everything) ---- */
+/* ---- Global fixed background ---- */
 body::before{
   content:"";
   position: fixed;
@@ -62,7 +63,7 @@ body::after{
   margin: 0 auto;
 }
 
-/* ---- Header ---- */
+/* ---- Header (fixed) ---- */
 .site-header{
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -109,9 +110,9 @@ body::after{
   transform: translateY(-1px);
 }
 
-/* ---- Main offset (fixed header) ---- */
+/* ---- Main offset ---- */
 main#top{
-  padding-top: 74px;
+  padding-top: 74px; /* header高さ分 */
 }
 
 /* ---- Buttons ---- */
@@ -149,17 +150,19 @@ main#top{
   background: rgba(255,255,255,.10);
 }
 
-/* ---- Hero (NOT a glass card) ---- */
+/* ---- Hero ---- */
 .hero{
-  min-height: calc(100vh - 74px);
+  /* Heroはカードにしない（透明） */
+  margin: 0;
   padding: 26px 0 26px;
+  min-height: calc(100vh - 74px);
   display: grid;
-  align-content: start; /* ←下に落ちない */
+  align-content: start; /* 下に落ちない */
 }
 
 .hero-inner{
   display: grid;
-  gap: 16px;
+  gap: 14px;
 }
 
 .eyebrow{
@@ -195,9 +198,10 @@ main#top{
   padding-left: 18px;
   color: rgba(233,238,247,.88);
 }
+
 .hero-points li{ margin: 6px 0; }
 
-/* ---- Glass panel base (ONLY .section) ---- */
+/* ---- Glass panel (default for .section) ---- */
 .section{
   margin: 26px 0;
   padding: 36px 30px;
@@ -211,7 +215,7 @@ main#top{
   -webkit-backdrop-filter: blur(14px);
 }
 
-/* common headings */
+/* ---- Generic headings ---- */
 .sec-title{
   margin: 0 0 10px;
   font-size: 22px;
@@ -223,7 +227,7 @@ main#top{
   color: rgba(233,238,247,.82);
 }
 
-/* About headings */
+/* ---- About headings (your HTML uses these) ---- */
 .section-eyebrow{
   margin: 0 0 6px;
   font-size: 12px;
@@ -243,22 +247,27 @@ main#top{
   color: rgba(233,238,247,.82);
 }
 
-/* ---- About (background image FULL-BLEED; not card) ---- */
+/* ---- About background (NO cardization) ----
+   HTML: <section id="about" class="section section-bg">
+   → .section のカードを #about で完全に殺す
+*/
 #about.section-bg{
-  margin: 26px 0;
+  /* ここで “カード化” を無効化 */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  /* 画像を見せる土台 */
+  margin: 26px 0;          /* .section と同じ余白 */
   border-radius: 24px;
   overflow: hidden;
   position: relative;
-
-  /* ← ここが「カード化をやめる」 핵 */
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  padding: 0;              /* 中身側で padding を持たせる */
 }
 
-/* background layer */
+/* 背景レイヤー */
 #about.section-bg .bg-layer{
   position: absolute;
   inset: 0;
@@ -269,19 +278,19 @@ main#top{
   background-size: cover;
   background-repeat: no-repeat;
 
-  /* readability overlay */
-  background-color: rgba(0,0,0,.35);
+  /* 読みやすさの暗幕（好みで .25〜.55） */
+  background-color: rgba(0,0,0,.38);
   background-blend-mode: multiply;
 }
 
-/* content sits on top */
+/* 中身は前面＆余白を付与（.sectionと同等のpadding） */
 #about.section-bg .section-inner{
   position: relative;
   z-index: 1;
-  padding: 36px 30px; /* ← .section の padding と同等に */
+  padding: 36px 30px;
 }
 
-/* about cards */
+/* About cards/grid */
 .about-grid{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -302,8 +311,10 @@ main#top{
 .about-card-title{
   margin: 0 0 10px;
   font-size: 16px;
+  letter-spacing: .02em;
 }
 
+/* lists */
 .list{
   margin: 0;
   padding-left: 18px;
@@ -312,6 +323,10 @@ main#top{
 .list li{ margin: 6px 0; }
 
 /* ---- Works ---- */
+.section-head{
+  margin-bottom: 12px;
+}
+
 .works-grid{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -403,6 +418,7 @@ main#top{
 .news > div:last-child{ border-bottom: none; }
 
 .news dt{ color: rgba(233,238,247,.75); }
+
 .news dd{
   margin: 0;
   color: rgba(233,238,247,.90);
