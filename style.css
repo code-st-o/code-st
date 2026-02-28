@@ -1,8 +1,9 @@
 /* =========================
-   CODE-ST style.css（全差し替え）
-   背景固定 + ガラスパネル（重なり）デザイン
-   + Hero位置調整
-   + About固定背景（パララックス風）
+   CODE-ST style.css（全書き直し）
+   - 背景グラデーション（bodyに固定）
+   - ガラスカードは .section だけに適用（section全体には適用しない）
+   - Hero上寄せ
+   - Aboutは背景画像を全面表示（カード化しない）
    ========================= */
 
 /* ---- Reset / Base ---- */
@@ -12,23 +13,24 @@
 
 html { scroll-behavior: smooth; }
 
-body {
+body{
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP",
+               "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   line-height: 1.75;
   color: #e9eef7;
-  background: #070a10; /* ベース */
+  background: #070a10;
   overflow-x: hidden;
 }
 
-/* リンクが青くなるのを抑止 */
+/* Link */
 a { color: inherit; }
 a:visited { color: inherit; }
 a:hover { opacity: .92; }
 
-/* ---- Fixed Background (背面にずっと居る) ---- */
-body::before {
-  content: "";
+/* ---- Global fixed background (behind everything) ---- */
+body::before{
+  content:"";
   position: fixed;
   inset: 0;
   z-index: -2;
@@ -40,7 +42,7 @@ body::before {
   filter: saturate(110%);
 }
 
-/* うっすらノイズっぽい質感 */
+/* subtle noise */
 body::after{
   content:"";
   position: fixed;
@@ -55,17 +57,15 @@ body::after{
 }
 
 /* ---- Layout ---- */
-.container {
+.container{
   width: min(1100px, calc(100% - 48px));
   margin: 0 auto;
 }
 
-/* ---- Header (固定 + 透け) ---- */
-header {
+/* ---- Header ---- */
+.site-header{
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 50;
   background: rgba(10, 14, 24, .40);
   backdrop-filter: blur(12px);
@@ -87,7 +87,7 @@ header {
   text-decoration: none;
 }
 
-nav ul{
+.site-nav ul{
   list-style: none;
   display: flex;
   gap: 22px;
@@ -95,7 +95,7 @@ nav ul{
   margin: 0;
 }
 
-nav a{
+.site-nav a{
   text-decoration: none;
   font-size: 14px;
   color: rgba(233,238,247,.92);
@@ -104,67 +104,17 @@ nav a{
   transition: background .2s ease, transform .2s ease;
 }
 
-nav a:hover{
+.site-nav a:hover{
   background: rgba(255,255,255,.08);
   transform: translateY(-1px);
 }
 
-/* ---- Main spacing (固定ヘッダー分) ---- */
+/* ---- Main offset (fixed header) ---- */
 main#top{
-  padding-top: 74px; /* header高さ分 */
+  padding-top: 74px;
 }
 
-/* ---- Section base (ガラスパネルで“重なり”) ---- */
-section{
-  margin: 26px 0;
-  padding: 36px 30px;
-  border-radius: 24px;
-  background: rgba(10, 14, 24, .42);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow:
-    0 18px 40px rgba(0,0,0,.35),
-    inset 0 1px 0 rgba(255,255,255,.06);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-/* セクション見出し */
-.sec-title{
-  margin: 0 0 10px;
-  font-size: 22px;
-  letter-spacing: .06em;
-}
-
-.lead{
-  margin: 0 0 18px;
-  color: rgba(233,238,247,.82);
-}
-
-/* ---- Hero ---- */
-.hero{
-  /* section共通 margin(26px) と縦センター寄せを打ち消す */
-  margin-top: 0;
-  min-height: calc(100vh - 74px);
-  display: grid;
-  align-content: start;
-  gap: 18px;
-  padding: 24px 0 26px; /* 上の余白を調整 */
-}
-
-.hero h1{
-  margin: 0;
-  font-size: clamp(34px, 4.8vw, 56px);
-  line-height: 1.15;
-  letter-spacing: .01em;
-}
-
-.hero p{
-  margin: 0;
-  max-width: 62ch;
-  color: rgba(233,238,247,.85);
-}
-
-/* ボタン */
+/* ---- Buttons ---- */
 .btn{
   display: inline-flex;
   align-items: center;
@@ -188,9 +138,7 @@ section{
   border-color: rgba(255,255,255,.24);
 }
 
-.btn:active{
-  transform: translateY(0);
-}
+.btn:active{ transform: translateY(0); }
 
 .btn-outline{
   background: transparent;
@@ -201,10 +149,167 @@ section{
   background: rgba(255,255,255,.10);
 }
 
-/* Heroのボタン並び */
-.hero .btn + .btn{
-  margin-left: 10px;
+/* ---- Hero (NOT a glass card) ---- */
+.hero{
+  min-height: calc(100vh - 74px);
+  padding: 26px 0 26px;
+  display: grid;
+  align-content: start; /* ←下に落ちない */
 }
+
+.hero-inner{
+  display: grid;
+  gap: 16px;
+}
+
+.eyebrow{
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(233,238,247,.70);
+}
+
+.hero-title{
+  margin: 0;
+  font-size: clamp(34px, 4.8vw, 56px);
+  line-height: 1.15;
+  letter-spacing: .01em;
+}
+
+.hero-lead{
+  margin: 0;
+  max-width: 62ch;
+  color: rgba(233,238,247,.85);
+}
+
+.hero-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.hero-points{
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: rgba(233,238,247,.88);
+}
+.hero-points li{ margin: 6px 0; }
+
+/* ---- Glass panel base (ONLY .section) ---- */
+.section{
+  margin: 26px 0;
+  padding: 36px 30px;
+  border-radius: 24px;
+  background: rgba(10, 14, 24, .42);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* common headings */
+.sec-title{
+  margin: 0 0 10px;
+  font-size: 22px;
+  letter-spacing: .06em;
+}
+
+.lead{
+  margin: 0 0 18px;
+  color: rgba(233,238,247,.82);
+}
+
+/* About headings */
+.section-eyebrow{
+  margin: 0 0 6px;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(233,238,247,.70);
+}
+
+.section-title{
+  margin: 0 0 10px;
+  font-size: 24px;
+  letter-spacing: .02em;
+}
+
+.section-lead{
+  margin: 0 0 18px;
+  color: rgba(233,238,247,.82);
+}
+
+/* ---- About (background image FULL-BLEED; not card) ---- */
+#about.section-bg{
+  margin: 26px 0;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+
+  /* ← ここが「カード化をやめる」 핵 */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* background layer */
+#about.section-bg .bg-layer{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background-image: url("about-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* readability overlay */
+  background-color: rgba(0,0,0,.35);
+  background-blend-mode: multiply;
+}
+
+/* content sits on top */
+#about.section-bg .section-inner{
+  position: relative;
+  z-index: 1;
+  padding: 36px 30px; /* ← .section の padding と同等に */
+}
+
+/* about cards */
+.about-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 14px;
+}
+
+.about-card{
+  padding: 22px 20px;
+  border-radius: 20px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 14px 30px rgba(0,0,0,.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.about-card-title{
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.list{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(233,238,247,.88);
+}
+.list li{ margin: 6px 0; }
 
 /* ---- Works ---- */
 .works-grid{
@@ -285,9 +390,7 @@ section{
 }
 
 /* ---- News ---- */
-.news{
-  margin: 0;
-}
+.news{ margin: 0; }
 
 .news > div{
   display: grid;
@@ -297,30 +400,29 @@ section{
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
-.news > div:last-child{
-  border-bottom: none;
-}
+.news > div:last-child{ border-bottom: none; }
 
-.news dt{
-  color: rgba(233,238,247,.75);
-}
-
+.news dt{ color: rgba(233,238,247,.75); }
 .news dd{
   margin: 0;
   color: rgba(233,238,247,.90);
 }
 
 /* ---- Contact ---- */
-form dl{
-  margin: 0;
+.form{
   display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 10px 14px;
-  align-items: center;
+  gap: 14px;
 }
 
-form dt{ color: rgba(233,238,247,.80); }
-form dd{ margin: 0; }
+.form-row{
+  display: grid;
+  gap: 8px;
+}
+
+label{
+  color: rgba(233,238,247,.82);
+  font-size: 14px;
+}
 
 input, textarea{
   width: 100%;
@@ -342,101 +444,34 @@ input:focus, textarea:focus{
   background: rgba(0,0,0,.32);
 }
 
-form button.btn{
-  margin-top: 14px;
-}
+form button.btn{ margin-top: 14px; }
 
 /* ---- Footer ---- */
-footer{
+.site-footer{
   margin: 30px 0 40px;
   padding: 14px 0 0;
   text-align: center;
   color: rgba(233,238,247,.72);
 }
 
+/* ---- Anchor offset ---- */
+#about, #works, #news, #contact{
+  scroll-margin-top: 90px;
+}
+
 /* ---- Responsive ---- */
+@media (max-width: 980px){
+  .about-grid{ grid-template-columns: 1fr; }
+}
+
 @media (max-width: 860px){
   .works-grid{ grid-template-columns: 1fr; }
-  form dl{ grid-template-columns: 1fr; }
-  nav ul{ gap: 10px; }
-  nav a{ padding: 8px 8px; }
-  section{ padding: 28px 18px; }
+  .site-nav ul{ gap: 10px; }
+  .site-nav a{ padding: 8px 8px; }
+  .section{ padding: 28px 18px; }
+  #about.section-bg .section-inner{ padding: 28px 18px; }
 }
 
-/* ===== スクロールが勝手に戻る原因になりやすい設定を無効化 ===== */
-html, body, main, .container {
-  scroll-snap-type: none !important;
-}
-
-section, .panel, .snap {
-  scroll-snap-align: none !important;
-}
-
-/* ===== 戻り防止の基本 ===== */
-html { scroll-behavior: smooth; }
-body { overflow-x: hidden; }
-
-/* 固定ヘッダー分だけアンカー位置をずらす */
-section { scroll-margin-top: 90px; }
-
-/* =========================
-   About：固定背景（パララックス風）
-   HTMLはそのまま（section-bg / bg-layer / section-inner を利用）
-   ========================= */
-
-.section-bg{
-  position: relative;
-  overflow: hidden;
-}
-
-.section-bg .bg-layer{
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-
-  background-image: url("about-bg.jpg"); /* ★背景画像パス */
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  
-  /* 暗幕（読みやすさ） */
-  background-color: rgba(0,0,0,.35);
-  background-blend-mode: multiply;
-}
-
-.section-bg .section-inner{
-  position: relative;
-  z-index: 1;
-}
-
-/* iPhone対策 */
-@media (max-width: 768px){
-  .section-bg .bg-layer{
-    background-attachment: scroll;
-  }
-}
-
-/* =========================
-   About パララックス強化版
-   ========================= */
-
-#about {
-  position: relative;
-  overflow: hidden;
-}
-
-#about::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("about-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-  transform: scale(1.1);
-}
-
-#about .section-inner {
-  position: relative;
-  z-index: 1;
-}
+/* ---- Safety: snap off ---- */
+html, body, main, .container { scroll-snap-type: none !important; }
+.section, .panel, .snap { scroll-snap-align: none !important; }
