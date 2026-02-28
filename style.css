@@ -485,6 +485,18 @@ form button.btn{ margin-top: 14px; }
   #about.section-bg .section-inner{ padding: 28px 18px; }
 }
 
+#about.section-bg{
+  background-image: url("about-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+#about.section-bg .bg-layer{
+  display: none;
+}
+
 /* ---- Safety: snap off ---- */
 html, body, main, .container { scroll-snap-type: none !important; }
 .section, .panel, .snap { scroll-snap-align: none !important; }
+
