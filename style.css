@@ -507,3 +507,11 @@ section, .panel, .snap { scroll-snap-align: none !important; }
   backdrop-filter: none;
 }
 
+/* Aboutだけカード背景を完全に消す（強制上書き） */
+section#about.section.section-bg {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
