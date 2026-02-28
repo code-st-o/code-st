@@ -398,8 +398,7 @@ section { scroll-margin-top: 90px; }
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
-
+  
   /* 暗幕（読みやすさ） */
   background-color: rgba(0,0,0,.35);
   background-blend-mode: multiply;
@@ -415,4 +414,29 @@ section { scroll-margin-top: 90px; }
   .section-bg .bg-layer{
     background-attachment: scroll;
   }
+}
+
+/* =========================
+   About パララックス強化版
+   ========================= */
+
+#about {
+  position: relative;
+  overflow: hidden;
+}
+
+#about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("about-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transform: scale(1.1);
+}
+
+#about .section-inner {
+  position: relative;
+  z-index: 1;
 }
