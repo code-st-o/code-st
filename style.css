@@ -1,8 +1,8 @@
 /* =========================
-   CODE-ST style.css（全通し：完全版）
-   - ガラス調（重なり）デザイン
-   - Hero位置修正（下に落ちない）
-   - About背景（スマホ安定：fixed削除）
+   CODE-ST style.css（全差し替え）
+   背景固定 + ガラスパネル（重なり）デザイン
+   + Hero位置調整
+   + About固定背景（パララックス風）
    ========================= */
 
 /* ---- Reset / Base ---- */
@@ -12,13 +12,12 @@
 
 html { scroll-behavior: smooth; }
 
-body{
+body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP",
-               "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   line-height: 1.75;
   color: #e9eef7;
-  background: #070a10;
+  background: #070a10; /* ベース */
   overflow-x: hidden;
 }
 
@@ -28,8 +27,8 @@ a:visited { color: inherit; }
 a:hover { opacity: .92; }
 
 /* ---- Fixed Background (背面にずっと居る) ---- */
-body::before{
-  content:"";
+body::before {
+  content: "";
   position: fixed;
   inset: 0;
   z-index: -2;
@@ -56,15 +55,13 @@ body::after{
 }
 
 /* ---- Layout ---- */
-.container{
+.container {
   width: min(1100px, calc(100% - 48px));
   margin: 0 auto;
 }
 
 /* ---- Header (固定 + 透け) ---- */
-/* HTMLでは .site-header だけど、要素headerにも効くように両方指定 */
-.site-header,
-header{
+header {
   position: fixed;
   top: 0;
   left: 0;
@@ -90,7 +87,6 @@ header{
   text-decoration: none;
 }
 
-.site-nav ul,
 nav ul{
   list-style: none;
   display: flex;
@@ -99,7 +95,6 @@ nav ul{
   margin: 0;
 }
 
-.site-nav a,
 nav a{
   text-decoration: none;
   font-size: 14px;
@@ -109,7 +104,6 @@ nav a{
   transition: background .2s ease, transform .2s ease;
 }
 
-.site-nav a:hover,
 nav a:hover{
   background: rgba(255,255,255,.08);
   transform: translateY(-1px);
@@ -117,73 +111,60 @@ nav a:hover{
 
 /* ---- Main spacing (固定ヘッダー分) ---- */
 main#top{
-  padding-top: 74px;
+  padding-top: 74px; /* header高さ分 */
+}
+
+/* ---- Section base (ガラスパネルで“重なり”) ---- */
+section{
+  margin: 26px 0;
+  padding: 36px 30px;
+  border-radius: 24px;
+  background: rgba(10, 14, 24, .42);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* セクション見出し */
+.sec-title{
+  margin: 0 0 10px;
+  font-size: 22px;
+  letter-spacing: .06em;
+}
+
+.lead{
+  margin: 0 0 18px;
+  color: rgba(233,238,247,.82);
 }
 
 /* ---- Hero ---- */
 .hero{
-  /* section共通marginが効いて落ちるのを防ぐ */
+  /* section共通 margin(26px) と縦センター寄せを打ち消す */
   margin-top: 0;
-
   min-height: calc(100vh - 74px);
   display: grid;
-  align-content: start; /* 縦センターをやめて上寄せ */
+  align-content: start;
   gap: 18px;
-
-  /* section共通paddingとは別に、Heroは“枠なし”に見せる */
-  padding: 24px 0 26px;
-
-  /* section共通のガラス枠を消す（Heroは1枚目なので軽く） */
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border-radius: 0;
+  padding: 24px 0 26px; /* 上の余白を調整 */
 }
 
-.hero-inner{
-  display: grid;
-  gap: 14px;
-}
-
-.eyebrow{
-  margin: 0;
-  font-size: 12px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(233,238,247,.70);
-}
-
-.hero-title{
+.hero h1{
   margin: 0;
   font-size: clamp(34px, 4.8vw, 56px);
   line-height: 1.15;
   letter-spacing: .01em;
 }
 
-.hero-lead{
+.hero p{
   margin: 0;
   max-width: 62ch;
   color: rgba(233,238,247,.85);
 }
 
-.hero-actions{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 6px;
-}
-
-.hero-points{
-  margin: 10px 0 0;
-  padding-left: 18px;
-  color: rgba(233,238,247,.88);
-}
-
-.hero-points li{ margin: 6px 0; }
-
-/* ---- Buttons ---- */
+/* ボタン */
 .btn{
   display: inline-flex;
   align-items: center;
@@ -207,7 +188,9 @@ main#top{
   border-color: rgba(255,255,255,.24);
 }
 
-.btn:active{ transform: translateY(0); }
+.btn:active{
+  transform: translateY(0);
+}
 
 .btn-outline{
   background: transparent;
@@ -218,115 +201,9 @@ main#top{
   background: rgba(255,255,255,.10);
 }
 
-/* ---- Section base (ガラスパネル) ---- */
-.section,
-section{
-  margin: 26px 0;
-  padding: 36px 30px;
-  border-radius: 24px;
-  background: rgba(10, 14, 24, .42);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow:
-    0 18px 40px rgba(0,0,0,.35),
-    inset 0 1px 0 rgba(255,255,255,.06);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-.section-inner{}
-
-/* セクション見出し（About等で使用） */
-.section-eyebrow{
-  margin: 0 0 6px;
-  font-size: 12px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(233,238,247,.70);
-}
-
-.section-title{
-  margin: 0 0 10px;
-  font-size: 24px;
-  letter-spacing: .02em;
-}
-
-.section-lead{
-  margin: 0 0 18px;
-  color: rgba(233,238,247,.82);
-}
-
-/* Works/News/Contactで使っている汎用 */
-.section-head{
-  margin-bottom: 12px;
-}
-
-.sec-title{
-  margin: 0 0 10px;
-  font-size: 22px;
-  letter-spacing: .06em;
-}
-
-.lead{
-  margin: 0 0 18px;
-  color: rgba(233,238,247,.82);
-}
-
-/* ---- About cards/grid ---- */
-.about-grid{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 14px;
-}
-
-.about-card{
-  padding: 22px 20px;
-  border-radius: 20px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.10);
-  box-shadow: 0 14px 30px rgba(0,0,0,.25);
-}
-
-.about-card-title{
-  margin: 0 0 10px;
-  font-size: 16px;
-  letter-spacing: .02em;
-}
-
-.list{
-  margin: 0;
-  padding-left: 18px;
-  color: rgba(233,238,247,.88);
-}
-
-.list li{ margin: 6px 0; }
-
-/* ---- About 背景（スマホ安定版） ---- */
-.section-bg{
-  position: relative;
-  overflow: hidden;
-}
-
-.section-bg .bg-layer{
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-
-  /* 背景画像（同階層にabout-bg.jpgがある前提） */
-  background-image: url("about-bg.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  /* 文字を読みやすくする暗幕（調整OK） */
-  background-color: rgba(0,0,0,.35);
-  background-blend-mode: multiply;
-}
-
-/* 中身を前面へ */
-.section-bg .section-inner{
-  position: relative;
-  z-index: 1;
+/* Heroのボタン並び */
+.hero .btn + .btn{
+  margin-left: 10px;
 }
 
 /* ---- Works ---- */
@@ -434,20 +311,16 @@ section{
 }
 
 /* ---- Contact ---- */
-.form{
+form dl{
+  margin: 0;
   display: grid;
-  gap: 14px;
+  grid-template-columns: 140px 1fr;
+  gap: 10px 14px;
+  align-items: center;
 }
 
-.form-row{
-  display: grid;
-  gap: 8px;
-}
-
-label{
-  color: rgba(233,238,247,.82);
-  font-size: 14px;
-}
+form dt{ color: rgba(233,238,247,.80); }
+form dd{ margin: 0; }
 
 input, textarea{
   width: 100%;
@@ -469,8 +342,11 @@ input:focus, textarea:focus{
   background: rgba(0,0,0,.32);
 }
 
+form button.btn{
+  margin-top: 14px;
+}
+
 /* ---- Footer ---- */
-.site-footer,
 footer{
   margin: 30px 0 40px;
   padding: 14px 0 0;
@@ -479,39 +355,88 @@ footer{
 }
 
 /* ---- Responsive ---- */
-@media (max-width: 980px){
-  .about-grid{
-    grid-template-columns: 1fr;
+@media (max-width: 860px){
+  .works-grid{ grid-template-columns: 1fr; }
+  form dl{ grid-template-columns: 1fr; }
+  nav ul{ gap: 10px; }
+  nav a{ padding: 8px 8px; }
+  section{ padding: 28px 18px; }
+}
+
+/* ===== スクロールが勝手に戻る原因になりやすい設定を無効化 ===== */
+html, body, main, .container {
+  scroll-snap-type: none !important;
+}
+
+section, .panel, .snap {
+  scroll-snap-align: none !important;
+}
+
+/* ===== 戻り防止の基本 ===== */
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+
+/* 固定ヘッダー分だけアンカー位置をずらす */
+section { scroll-margin-top: 90px; }
+
+/* =========================
+   About：固定背景（パララックス風）
+   HTMLはそのまま（section-bg / bg-layer / section-inner を利用）
+   ========================= */
+
+.section-bg{
+  position: relative;
+  overflow: hidden;
+}
+
+.section-bg .bg-layer{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background-image: url("about-bg.jpg"); /* ★背景画像パス */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+  /* 暗幕（読みやすさ） */
+  background-color: rgba(0,0,0,.35);
+  background-blend-mode: multiply;
+}
+
+.section-bg .section-inner{
+  position: relative;
+  z-index: 1;
+}
+
+/* iPhone対策 */
+@media (max-width: 768px){
+  .section-bg .bg-layer{
+    background-attachment: scroll;
   }
 }
 
-@media (max-width: 860px){
-  .works-grid{ grid-template-columns: 1fr; }
-  .site-nav ul, nav ul{ gap: 10px; }
-  .site-nav a, nav a{ padding: 8px 8px; }
-  .section, section{ padding: 28px 18px; }
-}
+/* =========================
+   About パララックス強化版
+   ========================= */
 
-/* ---- Anchor offset (固定ヘッダー分ずらす) ---- */
-.section, section{ scroll-margin-top: 90px; }
-
-/* ===== スクロールが勝手に戻る原因になりやすい設定を無効化 ===== */
-html, body, main, .container { scroll-snap-type: none !important; }
-section, .panel, .snap { scroll-snap-align: none !important; }
-
-/* Aboutはガラス背景を消す */
 #about {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  backdrop-filter: none;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Aboutだけカード背景を完全に消す（強制上書き） */
-section#about.section.section-bg {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
+#about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("about-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transform: scale(1.1);
 }
 
+#about .section-inner {
+  position: relative;
+  z-index: 1;
+}
