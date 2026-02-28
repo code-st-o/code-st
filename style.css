@@ -498,3 +498,12 @@ footer{
 /* ===== スクロールが勝手に戻る原因になりやすい設定を無効化 ===== */
 html, body, main, .container { scroll-snap-type: none !important; }
 section, .panel, .snap { scroll-snap-align: none !important; }
+
+/* Aboutはガラス背景を消す */
+#about {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
