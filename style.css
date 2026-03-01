@@ -1,14 +1,16 @@
 /* =========================
-   CODE-ST style.css (スマホ対応パララックス完全版)
+   CODE-ST style.css (スマホ対応・決定版)
    ========================= */
 
-/* ---- 基本設定 ---- */
+/* ---- 全体設定 ---- */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  /* スマホでのスクロールを滑らかにする */
+  -webkit-overflow-scrolling: touch; 
 }
 
 body {
@@ -20,12 +22,12 @@ body {
   overflow-x: hidden;
 }
 
-/* 全体背景の装飾 */
+/* 全体背景グラデーション */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: -3; /* パララックス背景よりさらに後ろへ */
   background: 
     radial-gradient(circle at 15% 25%, rgba(0, 184, 255, 0.1), transparent 40%),
     radial-gradient(circle at 85% 35%, rgba(160, 98, 255, 0.08), transparent 40%),
@@ -37,7 +39,7 @@ body::before {
   margin: 0 auto;
 }
 
-/* ---- Header ---- */
+/* ---- Header (固定) ---- */
 .site-header {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -56,7 +58,7 @@ body::before {
 }
 
 .brand {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 800;
   text-decoration: none;
   color: #fff;
@@ -65,13 +67,12 @@ body::before {
 .site-nav ul {
   display: flex;
   list-style: none;
-  gap: 15px;
-  margin: 0; padding: 0;
+  gap: 15px; margin: 0; padding: 0;
 }
 
 .site-nav a {
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -89,44 +90,50 @@ body::before {
   color: #fff;
 }
 
-/* ---- About (★スマホでも動くパララックス) ---- */
+/* ---- About (★スマホでも絶対に動くパララックス) ---- */
 #about.section-bg {
   position: relative;
   margin: 60px 0;
-  /* clip-pathを使うことで、この範囲内だけ背景を「のぞき窓」のように見せます */
-  clip-path: inset(0); 
+  padding: 0; /* paddingは中のinnerで調整 */
   background: transparent !important;
+  
+  /* このセクションを切り抜きの窓にする */
+  clip-path: inset(0); 
+  -webkit-clip-path: inset(0);
 }
 
-/* 背景を固定するレイヤー */
+/* 背景画像を「画面」に対して固定する */
 #about.section-bg .bg-layer {
-  position: fixed; /* 画面に対して完全固定（スマホでも効く） */
+  position: fixed; /* これがスマホで背景を止める鍵 */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: -1; /* body::before(-3) よりは前、コンテンツ(1)よりは後ろ */
+  
   background-image: url("about-bg.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   
-  /* 文字を白く際立たせるための暗幕 */
-  background-color: rgba(0, 0, 0, 0.55);
+  /* スマホでの視認性確保のための暗幕 */
+  background-color: rgba(0, 0, 0, 0.6);
   background-blend-mode: multiply;
   
-  /* パフォーマンス向上のためのおまじない */
+  /* GPUレンダリングを強制して滑らかにする */
+  transform: translateZ(0);
   will-change: transform;
 }
 
 /* About内のコンテンツ（すべて白文字） */
 #about .section-inner {
   position: relative;
-  padding: 100px 0;
+  z-index: 1;
+  padding: 120px 0;
   color: #ffffff !important;
 }
 
-#about h2, #about p, #about h3, #about li, #about .section-eyebrow {
+#about h2, #about p, #about h3, #about li, #about .section-eyebrow, #about .section-lead {
   color: #ffffff !important;
 }
 
@@ -138,7 +145,7 @@ body::before {
 }
 
 .about-card {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 25px;
@@ -152,37 +159,37 @@ body::before {
 .works-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+  gap: 20px;
 }
 
 .work-card {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 30px;
+  border-radius: 20px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, background 0.3s ease;
   height: 100%;
 }
 
 .work-card:hover {
   background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-8px);
+  transform: translateY(-5px);
 }
 
 .tag {
   display: inline-block;
   font-size: 0.7rem;
-  padding: 3px 10px;
+  padding: 2px 8px;
   background: rgba(0, 212, 255, 0.15);
   color: #00d4ff;
   border-radius: 4px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .work-title {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 10px;
   color: #fff;
@@ -195,7 +202,7 @@ body::before {
   margin-bottom: 20px;
 }
 
-/* ---- Buttons ---- */
+/* ---- その他パーツ ---- */
 .btn {
   display: inline-flex;
   padding: 10px 25px;
@@ -208,14 +215,13 @@ body::before {
 .btn:not(.btn-outline) { background: #fff; color: #000; }
 .btn-outline { border: 1px solid rgba(255, 255, 255, 0.3); color: #fff; }
 
-/* ---- その他 ---- */
 .news > div {
   display: flex;
   gap: 15px;
   padding: 15px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-.news dt { color: #00d4ff; font-weight: bold; min-width: 100px; }
+.news dt { color: #00d4ff; font-weight: bold; min-width: 90px; }
 
 .form { display: grid; gap: 15px; max-width: 600px; }
 input, textarea {
@@ -236,12 +242,15 @@ input, textarea {
 /* スマホ対応 */
 @media (max-width: 768px) {
   .news > div { flex-direction: column; gap: 4px; }
+  .hero-title { font-size: 2rem; }
+  
+  /* スマホでfixed画像が大きくなりすぎるのを防ぐ */
   #about.section-bg .bg-layer {
-    /* スマホでfixedが重い場合の対策として高さを固定 */
-    height: 100vh;
+    height: 100%;
+    width: 100%;
   }
 }
 
 #about, #works, #news, #contact {
-  scroll-margin-top: 100px;
+  scroll-margin-top: 80px;
 }
