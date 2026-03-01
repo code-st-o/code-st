@@ -1,16 +1,10 @@
 /* =========================
-   CODE-ST style.css (スマホ・パララックス完全版)
+   CODE-ST style.css (決定版)
    ========================= */
 
 /* ---- Reset & Base ---- */
 *, *::before, *::after { box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  /* スマホでのスクロールをヌルヌルにする */
-  -webkit-overflow-scrolling: touch; 
-}
-
+html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
 body {
   margin: 0;
   font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
@@ -20,21 +14,21 @@ body {
   overflow-x: hidden;
 }
 
-/* 全体の背景装飾（グラデーション） */
+/* 全体背景グラデーション */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -10;
   background: 
-    radial-gradient(circle at 15% 25%, rgba(0, 184, 255, 0.1), transparent 45%),
-    radial-gradient(circle at 85% 35%, rgba(160, 98, 255, 0.08), transparent 45%),
+    radial-gradient(circle at 15% 25%, rgba(0, 184, 255, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 35%, rgba(160, 98, 255, 0.05), transparent 40%),
     linear-gradient(180deg, #070a10 0%, #0b1120 100%);
 }
 
 .container { width: min(1100px, calc(100% - 48px)); margin: 0 auto; }
 
-/* ---- Header (固定) ---- */
+/* ---- Header (固定・ガラス風) ---- */
 .site-header {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -51,129 +45,103 @@ body::before {
 .site-nav a:hover { color: #fff; }
 
 /* ---- Hero ---- */
-.hero { min-height: 85vh; display: flex; align-items: center; padding-top: 80px; }
+.hero { min-height: 80vh; display: flex; align-items: center; padding-top: 80px; }
 .hero-title { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1.5rem; }
 .hero-lead { font-size: 1.05rem; color: rgba(233, 238, 247, 0.9); max-width: 700px; margin-bottom: 2rem; }
 
-/* ---- About (★スマホ・PC両対応パララックス) ---- */
-#about.section-bg {
+/* ---- 共通パララックス設定 (About & Works) ---- */
+.section-bg {
   position: relative;
   margin: 80px 0;
   padding: 0;
   background: transparent !important;
-  
-  /* のぞき窓（スマホでも背景を固定させる魔法） */
   clip-path: inset(0); 
   -webkit-clip-path: inset(0);
 }
 
-/* 背景を固定するレイヤー */
-#about.section-bg .bg-layer {
-  position: fixed; /* 画面にピタッと固定 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.section-bg .bg-layer {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
   z-index: -1;
-  background-image: url("about-bg.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
-  /* 文字を白く際立たせるための暗幕 */
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.65);
   background-blend-mode: multiply;
-
-  /* GPU加速（ヌルヌル動かす設定） */
-  transform: translate3d(0, 0, 0);
+  transform: translateZ(0);
   will-change: transform;
 }
 
-/* About内のコンテンツ（すべて純白に固定） */
-#about .section-inner {
-  position: relative;
-  z-index: 1;
-  padding: 120px 0;
-}
-#about .section-title, 
-#about .section-eyebrow, 
-#about .section-lead, 
-#about .about-card-title,
-#about .list li {
+/* 個別の背景画像指定 */
+#about .bg-layer { background-image: url("about-bg.jpg"); }
+#works .bg-layer { background-image: url("works-bg.jpg"); }
+
+.section-inner { position: relative; z-index: 1; padding: 120px 0; }
+
+/* パララックス内の文字色を白に強制 */
+.section-bg .section-inner, 
+.section-bg .section-title, 
+.section-bg .sec-title, 
+.section-bg .lead, 
+.section-bg .section-lead, 
+.section-bg .work-title, 
+.section-bg .work-desc {
   color: #ffffff !important;
 }
 
-.about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
-.about-card {
-  background: rgba(255, 255, 255, 0.12);
+/* ---- カードデザイン ---- */
+.about-grid, .works-grid { display: grid; gap: 24px; margin-top: 40px; }
+.about-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.works-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+.about-card, .work-card {
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 30px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* ---- Works (モダンなカード化) ---- */
-#works { padding: 80px 0; }
-.works-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-top: 30px; }
-.work-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
-  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.3s ease, background 0.3s ease;
 }
-.work-card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(0, 212, 255, 0.4);
-  transform: translateY(-8px);
-}
+
+.work-card { height: 100%; display: flex; flex-direction: column; }
+.work-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.15); }
+
 .tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  background: rgba(0, 212, 255, 0.15);
-  color: #00d4ff;
-  border-radius: 4px;
-  margin-bottom: 12px;
-  margin-right: 6px;
+  display: inline-block; font-size: 0.75rem; padding: 4px 10px;
+  background: rgba(0, 212, 255, 0.2); color: #00d4ff; border-radius: 4px; margin: 0 6px 12px 0;
 }
-.work-title { font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
-.work-desc { font-size: 0.9rem; color: rgba(233, 238, 247, 0.75); margin-bottom: 24px; flex-grow: 1; }
 
-/* ---- Buttons ---- */
+.works-cta {
+  margin-top: 60px; text-align: center; padding: 40px;
+  background: rgba(255, 255, 255, 0.05); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ---- その他パーツ ---- */
 .btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 12px 28px; border-radius: 50px; text-decoration: none;
-  font-weight: 700; font-size: 0.9rem; transition: 0.3s;
-  background: #fff; color: #000; border: none; cursor: pointer;
+  display: inline-flex; padding: 12px 30px; border-radius: 50px; text-decoration: none;
+  font-weight: 700; font-size: 0.9rem; transition: 0.3s; background: #fff; color: #000; cursor: pointer; border: none;
 }
-.btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.3); margin-left: 10px; }
-.btn:hover { transform: scale(1.05); }
+.btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.4); }
+.btn:hover { transform: scale(1.05); opacity: 0.9; }
 
-/* ---- News / Contact ---- */
+.section { padding: 80px 0; }
 .news > div { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
 .news dt { color: #00d4ff; font-weight: bold; min-width: 100px; }
-.form { display: grid; gap: 16px; max-width: 600px; }
+
+.form { display: grid; gap: 16px; max-width: 650px; margin: 0 auto; }
 input, textarea {
   width: 100%; padding: 14px; background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff;
 }
 
-/* ---- Footer ---- */
-.site-footer { text-align: center; padding: 80px 0 40px; color: rgba(255, 255, 255, 0.3); font-size: 0.85rem; }
+.site-footer { text-align: center; padding: 80px 0 40px; color: rgba(255, 255, 255, 0.3); }
 
-/* スマホ対応調整 */
+/* スマホ対応 */
 @media (max-width: 768px) {
   .news > div { flex-direction: column; gap: 4px; }
-  .hero-title { font-size: 1.9rem; }
-  .btn-outline { margin-left: 0; margin-top: 10px; }
-  .header-inner { padding: 12px 0; }
-  .site-nav ul { gap: 12px; }
+  .hero-title { font-size: 2rem; }
+  .hero-actions { display: flex; flex-direction: column; gap: 10px; }
 }
 
-/* アンカーリンク位置調整 */
 #about, #works, #news, #contact { scroll-margin-top: 100px; }
