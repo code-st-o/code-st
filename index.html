@@ -177,15 +177,31 @@
     </section>
 
     <!-- Contact -->
+    <!-- Contact (お問い合わせ：実働版) -->
     <section id="contact" class="section">
       <div class="container">
         <h2 class="sec-title">Contact</h2>
         <p class="lead">ご相談、お見積りはこちらからお気軽にお問い合わせください。</p>
-        <form class="form">
-          <input type="text" placeholder="貴社名 / お名前" />
-          <input type="email" placeholder="メールアドレス" />
-          <textarea placeholder="ご相談内容（目的・ご予算・納期など）"></textarea>
-          <button class="btn" type="button">送信内容を確認する（ダミー）</button>
+        
+        <!-- actionの中身を、手順1でコピーしたURLに書き換えてください -->
+        <form class="form" action="https://formspree.io/f/xkovabrp" method="POST">
+          <div class="form-row">
+            <label for="name">貴社名 / お名前</label>
+            <input id="name" name="name" type="text" placeholder="例：株式会社〇〇 / 山田 太郎" required />
+          </div>
+
+          <div class="form-row">
+            <label for="email">メールアドレス</label>
+            <input id="email" name="email" type="email" placeholder="例：mail@example.com" required />
+          </div>
+
+          <div class="form-row">
+            <label for="message">ご相談内容（目的・ご予算・納期など）</label>
+            <textarea id="message" name="message" placeholder="例：新設メディアの不動産記事執筆をお願いしたい..." required></textarea>
+          </div>
+
+          <!-- buttonのtypeを "submit" に変更 -->
+          <button class="btn" type="submit">この内容で送信する</button>
         </form>
       </div>
     </section>
