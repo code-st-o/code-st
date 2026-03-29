@@ -26,7 +26,7 @@
 }
 
 html {
-  scroll-behavior: smooth; /* スムーススクロール */
+  scroll-behavior: smooth;
 }
 
 body{
@@ -35,7 +35,7 @@ body{
   background: var(--bg-light);
   color: var(--text-main);
   line-height: 1.8;
-  overflow-x: hidden; /* 横揺れ防止 */
+  overflow-x: hidden;
 }
 
 /* ヘッダー */
@@ -109,7 +109,7 @@ header {
   margin-bottom: 8px;
 }
 
-/* ヒーローセクション（修正箇所：タイトルの改行対策と画像縮小） */
+/* ヒーローセクション */
 .hero{
   background: linear-gradient(135deg, var(--primary) 0%, #004085 100%);
   color: #fff;
@@ -119,7 +119,6 @@ header {
 
 .hero-grid{
   display: grid;
-  /* 比率を1.5:0.5にしてテキスト領域を最大化 */
   grid-template-columns: 1.5fr 0.5fr; 
   gap: 40px;
   align-items: center;
@@ -129,7 +128,6 @@ header {
   font-size: clamp(2.4rem, 5.5vw, 3.8rem);
   line-height: 1.25;
   margin-bottom: 24px;
-  /* 熟語の途中（構造、直結など）で改行させない */
   word-break: keep-all;
   overflow-wrap: anywhere;
 }
@@ -151,7 +149,7 @@ header {
 
 .hero-image img{
   width: 100%;
-  max-width: 380px; /* 画像を縮小してタイトルスペースを確保 */
+  max-width: 380px;
   border-radius: 30px;
   box-shadow: 0 30px 60px rgba(0,0,0,0.4);
 }
@@ -241,19 +239,6 @@ header {
   text-align: center;
   padding: 80px 40px;
   border-radius: 40px;
-  margin-top: 40px;
-}
-
-/* 制作意図（ポートフォリオ用：修正後の文言） */
-.portfolio-note {
-  background: #eef4f9;
-  border-radius: 30px;
-  padding: 50px;
-  margin-top: 100px;
-}
-.portfolio-note h3 {
-  color: var(--primary);
-  margin-top: 0;
 }
 
 footer{
@@ -270,7 +255,7 @@ footer{
   .hero-grid, .grid-3, .grid-2, .flow-container{ grid-template-columns: 1fr; }
   .hero{ padding: 80px 0; text-align: center; }
   .hero-image { justify-content: center; margin-top: 40px; }
-  .hero-copy h1 { word-break: normal; } /* スマホでは適宜改行を許可 */
+  .hero-copy h1 { word-break: normal; }
   .section{ padding: 70px 0; }
 }
 </style>
@@ -300,7 +285,7 @@ footer{
       <a class="btn" href="#contact">無料でSEO相談をする</a>
     </div>
     <div class="hero-image">
-      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SEOイメージ">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SEO分析イメージ">
     </div>
   </div>
 </section>
@@ -335,7 +320,7 @@ footer{
       </div>
       <div class="card">
         <h3>高品質な記事制作</h3>
-        <p>読者の課題解決を第一に、Googleに評価される論理構造を設計。不動産実務20年の知見を活かした深い内容を提供します。</p>
+        <p>読者の課題解決を第一に、Googleに評価される論理構造を設計。実務経験に基づいた専門性の高いコンテンツを提供します。</p>
       </div>
       <div class="card">
         <h3>コンバージョン導線改善</h3>
@@ -375,22 +360,8 @@ footer{
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="portfolio-note reveal">
-      <h3>制作意図（ポートフォリオ用）</h3>
-      <p>本プロジェクトは、**「Web集客を経営の柱へと育てたい企業様」**を支援する、伴走型SEOコンサルティングサービスを想定したLPです。GitHubでの公開を前提に、外部ライブラリに頼らずHTML/CSS/JSのみでモダンなUIを実装しました。</p>
-      <ul>
-        <li><strong>UI/UX:</strong> 信頼感を醸成するネイビーと、行動喚起を促すオレンジのコントラストを採用。余白とタイポグラフィにこだわり、専門性の高さを演出しました。</li>
-        <li><strong>Animation:</strong> Intersection Observer APIを用いたスクロール連動アニメーションを実装し、閲覧体験を向上させています。</li>
-        <li><strong>Responsive:</strong> モバイルファーストのグリッドレイアウトにより、デバイスを問わず「勝てる構造」が伝わる設計にしています。</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
 <footer>
-  <p>© SEO LP Sample - Portfolio Project</p>
+  <p>© SEO STRATEGY All Rights Reserved.</p>
 </footer>
 
 <script>
