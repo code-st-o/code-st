@@ -11,10 +11,10 @@
 
 <style>
 :root{
-  --primary: #002B5B;      /* 信頼感のあるネイビー */
-  --accent: #FF8C00;       /* 行動を促すオレンジ */
-  --bg-light: #F8FAFC;     /* 背景の薄いグレー */
-  --surface: #ffffff;      /* カード等の背景 */
+  --primary: #002B5B;
+  --accent: #FF8C00;
+  --bg-light: #F8FAFC;
+  --surface: #ffffff;
   --text-main: #2D3436;
   --text-sub: #636E72;
   --line: #E2E8F0;
@@ -66,7 +66,7 @@ header {
   letter-spacing: -0.02em;
 }
 
-/* アニメーション設定 */
+/* アニメーション */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -78,7 +78,6 @@ header {
   transform: translateY(0);
 }
 
-/* 共通レイアウト */
 .container{
   width: min(100% - 40px, var(--max-width));
   margin: auto;
@@ -109,12 +108,11 @@ header {
   margin-bottom: 8px;
 }
 
-/* ヒーローセクション */
+/* ヒーロー */
 .hero{
   background: linear-gradient(135deg, var(--primary) 0%, #004085 100%);
   color: #fff;
   padding: 120px 0;
-  position: relative;
 }
 
 .hero-grid{
@@ -132,9 +130,7 @@ header {
   overflow-wrap: anywhere;
 }
 
-.hero-copy h1 span{
-  color: var(--accent);
-}
+.hero-copy h1 span{ color: var(--accent); }
 
 .hero-copy p{
   font-size: 1.2rem;
@@ -142,11 +138,7 @@ header {
   opacity: 0.95;
 }
 
-.hero-image {
-  display: flex;
-  justify-content: flex-end;
-}
-
+.hero-image { display: flex; justify-content: flex-end; }
 .hero-image img{
   width: 100%;
   max-width: 380px;
@@ -157,15 +149,17 @@ header {
 /* ボタン */
 .btn{
   display: inline-block;
-  padding: 20px 50px;
+  padding: 18px 45px;
   background: var(--accent);
   color: #fff;
   border-radius: 100px;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3);
   text-decoration: none;
   transition: 0.3s;
+  border: none;
+  cursor: pointer;
 }
 
 .btn:hover{
@@ -174,7 +168,7 @@ header {
   box-shadow: 0 15px 30px rgba(255, 140, 0, 0.4);
 }
 
-/* カードデザイン */
+/* カード */
 .card{
   background: var(--surface);
   border-radius: 24px;
@@ -182,21 +176,12 @@ header {
   box-shadow: 0 15px 35px rgba(0,0,0,0.06);
   height: 100%;
   border: 1px solid var(--line);
-  transition: transform 0.3s;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.grid-3{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 .grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
 
 /* お悩みセクション */
-.pain-list {
-  max-width: 850px;
-  margin: 0 auto;
-}
+.pain-list { max-width: 850px; margin: 0 auto; }
 .pain-item {
   background: #fff;
   padding: 24px 32px;
@@ -206,57 +191,73 @@ header {
   align-items: center;
   font-weight: bold;
   border-left: 8px solid var(--accent);
-  font-size: 1.15rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
 
-/* フロー図 */
-.flow-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-.flow-item {
-  text-align: center;
-  background: #fff;
-  padding: 40px 20px;
-  border-radius: 24px;
-  position: relative;
-}
-.flow-num {
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: var(--accent);
-  line-height: 1;
-  margin-bottom: 10px;
-  opacity: 0.2;
-}
-
-/* CTA */
-.cta-box{
+/* フォームセクションの装飾 */
+.contact-section {
   background: var(--primary);
   color: #fff;
-  text-align: center;
-  padding: 80px 40px;
-  border-radius: 40px;
+  padding: 100px 0;
+  border-radius: 60px 60px 0 0;
+}
+
+.contact-section .section-title h2 { color: #fff; }
+
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 50px;
+  border-radius: 30px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form input, .form textarea {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #fdfdfd;
+}
+
+.form textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+.form input:focus, .form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+}
+
+.form .btn {
+  width: 100%;
+  margin-top: 10px;
 }
 
 footer{
   text-align: center;
-  padding: 60px 0;
+  padding: 40px 0;
   color: var(--text-sub);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   background: #fff;
-  border-top: 1px solid var(--line);
 }
 
-/* レスポンシブ */
 @media (max-width: 900px){
-  .hero-grid, .grid-3, .grid-2, .flow-container{ grid-template-columns: 1fr; }
-  .hero{ padding: 80px 0; text-align: center; }
+  .hero-grid, .grid-2{ grid-template-columns: 1fr; }
+  .hero{ text-align: center; }
   .hero-image { justify-content: center; margin-top: 40px; }
-  .hero-copy h1 { word-break: normal; }
-  .section{ padding: 70px 0; }
+  .form-container { padding: 30px 20px; }
 }
 </style>
 </head>
@@ -266,25 +267,16 @@ footer{
 <header>
   <div class="header-inner">
     <div class="logo">SEO STRATEGY</div>
-    <!-- ヘッダーのリンク -->
-    <a href="mailto:codes7748@gmail.com?subject=SEO無料相談のお問い合わせ" style="color:var(--accent); font-weight:bold; font-size: 0.9rem; text-decoration: none;">無料相談はこちら</a>
+    <a href="#contact" style="color:var(--accent); font-weight:bold; font-size: 0.9rem; text-decoration:none;">無料相談はこちら</a>
   </div>
 </header>
 
 <section class="hero">
   <div class="container hero-grid">
     <div class="hero-copy">
-      <h1>
-        量より<span>構造</span><br>
-        成果に直結する<br>
-        設計型SEO伴走支援
-      </h1>
-      <p>
-        キーワード設計から記事制作、CV導線まで一気通貫。<br>
-        「勝てる構造」を構築する、Web集客のパートナー。
-      </p>
-      <!-- ヒーローエリアのボタン -->
-      <a class="btn" href="mailto:codes7748@gmail.com?subject=SEO無料相談のお問い合わせ">無料でSEO相談をする</a>
+      <h1>量より<span>構造</span><br>成果に直結する<br>設計型SEO伴走支援</h1>
+      <p>キーワード設計から記事制作、CV導線まで一気通貫。<br>「勝てる構造」を構築する、Web集客のパートナー。</p>
+      <a class="btn" href="#contact">無料でSEO相談をする</a>
     </div>
     <div class="hero-image">
       <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SEO分析イメージ">
@@ -297,9 +289,7 @@ footer{
     <div class="section-title reveal">
       <span class="en">PAIN POINTS</span>
       <h2>こんなお悩みありませんか？</h2>
-      <p>Webサイトを強化したい企業様が直面する、共通の課題があります。</p>
     </div>
-
     <div class="pain-list reveal">
       <div class="pain-item">記事を公開しても、問い合わせや成約に繋がらない</div>
       <div class="pain-item">SEOを始めたいが、具体的な戦略の立て方がわからない</div>
@@ -314,51 +304,44 @@ footer{
       <span class="en">OUR SERVICE</span>
       <h2>設計型SEOパートナーとして</h2>
     </div>
-
     <div class="grid-2 reveal">
       <div class="card">
         <h3>キーワード設計</h3>
-        <p>単なる検索数の追及ではなく、ターゲットの成約意図を逆算。競合分析に基づいた「勝てるテーマ」を厳選します。</p>
+        <p>ターゲットの成約意図を逆算。競合分析に基づいた「勝てるテーマ」を厳選します。</p>
       </div>
       <div class="card">
         <h3>高品質な記事制作</h3>
-        <p>読者の課題解決を第一に、Googleに評価される論理構造を設計。実務経験に基づいた専門性の高いコンテンツを提供します。</p>
+        <p>Googleに評価される論理構造を設計。実務経験に基づいた専門性の高いコンテンツを提供します。</p>
       </div>
       <div class="card">
         <h3>コンバージョン導線改善</h3>
-        <p>集客は通過点です。記事から資料請求や問い合わせへ自然に繋げるためのUI/UX提案と導線設計を行います。</p>
+        <p>記事から資料請求や問い合わせへ自然に繋げるためのUI/UX提案と導線設計を行います。</p>
       </div>
       <div class="card">
         <h3>中長期的な伴走支援</h3>
-        <p>一過性の作業で終わらせず、データに基づくリライトや戦略修正を継続。御社のWeb資産価値を共に高めます。</p>
+        <p>一過性の作業で終わらせず、データに基づく改善を継続。御社のWeb資産価値を共に高めます。</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- お問い合わせセクション -->
+<section class="contact-section" id="contact">
   <div class="container">
     <div class="section-title reveal">
-      <span class="en">PROCESS</span>
-      <h2>ご依頼の流れ</h2>
+      <span class="en">CONTACT</span>
+      <h2>無料相談・お問い合わせ</h2>
+      <p>現在のサイト状況を拝見し、専門的な視点でアドバイスさせていただきます。</p>
     </div>
-    <div class="flow-container reveal">
-      <div class="flow-item"><div class="flow-num">01</div><p>お問い合わせ</p></div>
-      <div class="flow-item"><div class="flow-num">02</div><p>ヒアリング</p></div>
-      <div class="flow-item"><div class="flow-num">03</div><p>戦略プラン提示</p></div>
-      <div class="flow-item"><div class="flow-num">04</div><p>運用開始</p></div>
-    </div>
-  </div>
-</section>
 
-<section class="section" id="contact">
-  <div class="container reveal">
-    <div class="cta-box">
-      <h2>まずはお気軽に、<br>無料相談で課題を可視化しませんか？</h2>
-      <p>現在のサイト状況を拝見し、どこに伸び代があるか専門的な視点でアドバイスさせていただきます。</p>
-      <br>
-      <!-- 下部CTAのボタン -->
-      <a class="btn" href="mailto:codes7748@gmail.com?subject=SEO無料相談のお問い合わせ">無料でSEO相談を申し込む</a>
+    <div class="form-container reveal">
+      <!-- Formspree フォーム -->
+      <form class="form" action="https://formspree.io/f/xkovabrp" method="POST">
+        <input name="name" type="text" placeholder="貴社名 / お名前" required />
+        <input name="email" type="email" placeholder="メールアドレス" required />
+        <textarea name="message" placeholder="ご相談内容（現在の課題・目的・ご予算など）" required></textarea>
+        <button class="btn" type="submit">無料相談を申し込む</button>
+      </form>
     </div>
   </div>
 </section>
@@ -368,16 +351,14 @@ footer{
 </footer>
 
 <script>
-// スクロール時に要素を表示させるアニメーション（Intersection Observer）
+// スクロールアニメーション
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       entry.target.classList.add('active');
     }
   });
-}, {
-  threshold: 0.1
-});
+}, { threshold: 0.1 });
 
 document.querySelectorAll('.reveal').forEach((el) => {
   observer.observe(el);
