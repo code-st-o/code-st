@@ -38,6 +38,19 @@ body{
   overflow-x: hidden;
 }
 
+/* --- アニメーション設定 (ふわっと浮き上がる) --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s ease-out, transform 1.0s ease-out;
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ヘッダー */
 header {
   background: rgba(255, 255, 255, 0.95);
@@ -64,18 +77,6 @@ header {
   font-size: 1.3rem;
   color: var(--primary);
   letter-spacing: -0.02em;
-}
-
-/* アニメーション */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .container{
@@ -108,7 +109,7 @@ header {
   margin-bottom: 8px;
 }
 
-/* ヒーロー */
+/* ヒーローエリア */
 .hero{
   background: linear-gradient(135deg, var(--primary) 0%, #004085 100%);
   color: #fff;
@@ -180,7 +181,7 @@ header {
 
 .grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
 
-/* お悩みセクション */
+/* お悩み */
 .pain-list { max-width: 850px; margin: 0 auto; }
 .pain-item {
   background: #fff;
@@ -194,7 +195,7 @@ header {
   box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
 
-/* フォームセクションの装飾 */
+/* 問い合わせエリア */
 .contact-section {
   background: var(--primary);
   color: #fff;
@@ -227,23 +228,12 @@ header {
   font-size: 1rem;
   font-family: inherit;
   background: #fdfdfd;
+  color: var(--text-main);
 }
 
-.form textarea {
-  height: 150px;
-  resize: vertical;
-}
+.form textarea { height: 150px; resize: vertical; }
 
-.form input:focus, .form textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
-}
-
-.form .btn {
-  width: 100%;
-  margin-top: 10px;
-}
+.form .btn { width: 100%; margin-top: 10px; }
 
 footer{
   text-align: center;
@@ -271,7 +261,8 @@ footer{
   </div>
 </header>
 
-<section class="hero">
+<!-- Heroもふわっと表示させるためにrevealを付与 -->
+<section class="hero reveal">
   <div class="container hero-grid">
     <div class="hero-copy">
       <h1>量より<span>構造</span><br>成果に直結する<br>設計型SEO伴走支援</h1>
@@ -279,7 +270,7 @@ footer{
       <a class="btn" href="#contact">無料でSEO相談をする</a>
     </div>
     <div class="hero-image">
-      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SEO分析イメージ">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SEOイメージ">
     </div>
   </div>
 </section>
@@ -304,20 +295,20 @@ footer{
       <span class="en">OUR SERVICE</span>
       <h2>設計型SEOパートナーとして</h2>
     </div>
-    <div class="grid-2 reveal">
-      <div class="card">
+    <div class="grid-2">
+      <div class="card reveal">
         <h3>キーワード設計</h3>
         <p>ターゲットの成約意図を逆算。競合分析に基づいた「勝てるテーマ」を厳選します。</p>
       </div>
-      <div class="card">
+      <div class="card reveal">
         <h3>高品質な記事制作</h3>
         <p>Googleに評価される論理構造を設計。実務経験に基づいた専門性の高いコンテンツを提供します。</p>
       </div>
-      <div class="card">
+      <div class="card reveal">
         <h3>コンバージョン導線改善</h3>
         <p>記事から資料請求や問い合わせへ自然に繋げるためのUI/UX提案と導線設計を行います。</p>
       </div>
-      <div class="card">
+      <div class="card reveal">
         <h3>中長期的な伴走支援</h3>
         <p>一過性の作業で終わらせず、データに基づく改善を継続。御社のWeb資産価値を共に高めます。</p>
       </div>
@@ -325,7 +316,6 @@ footer{
   </div>
 </section>
 
-<!-- お問い合わせセクション -->
 <section class="contact-section" id="contact">
   <div class="container">
     <div class="section-title reveal">
@@ -335,7 +325,6 @@ footer{
     </div>
 
     <div class="form-container reveal">
-      <!-- Formspree フォーム -->
       <form class="form" action="https://formspree.io/f/xkovabrp" method="POST">
         <input name="name" type="text" placeholder="貴社名 / お名前" required />
         <input name="email" type="email" placeholder="メールアドレス" required />
@@ -351,18 +340,27 @@ footer{
 </footer>
 
 <script>
-// スクロールアニメーション
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('active');
+// スクロールアニメーションの制御
+const revealElements = document.querySelectorAll('.reveal');
+
+const revealOnScroll = () => {
+  revealElements.forEach((el) => {
+    const elementTop = el.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+    
+    // 要素が画面の85%の位置に入ったら表示
+    if (elementTop < windowHeight * 0.85) {
+      el.classList.add('active');
     }
   });
-}, { threshold: 0.1 });
+};
 
-document.querySelectorAll('.reveal').forEach((el) => {
-  observer.observe(el);
-});
+// 起動時とスクロール時に実行
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+
+// ページ読み込み完了時にも一度チェック（最初のHeroセクションなどのため）
+revealOnScroll();
 </script>
 
 </body>
