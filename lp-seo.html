@@ -50,7 +50,6 @@ body{
   transform: translateY(0);
 }
 
-/* 時間差アニメーション用のディレイ設定 */
 .delay-1 { transition-delay: 0.1s; }
 .delay-2 { transition-delay: 0.3s; }
 .delay-3 { transition-delay: 0.5s; }
@@ -98,18 +97,6 @@ header {
   overflow: hidden;
 }
 
-/* パララックス風の背景装飾 */
-.hero::before {
-  content: "";
-  position: absolute;
-  top: -10%;
-  right: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255,140,0,0.1) 0%, transparent 70%);
-  z-index: 0;
-}
-
 .hero-grid{
   position: relative;
   z-index: 1;
@@ -140,7 +127,6 @@ header {
   max-width: 380px;
   border-radius: 30px;
   box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-  /* 浮遊アニメーション */
   animation: float 6s ease-in-out infinite;
 }
 
@@ -166,7 +152,7 @@ header {
 }
 
 .btn:hover{
-  transform: translateY(-3px) scale(1.02);
+  transform: translateY(-3px);
   background: #ff9d26;
 }
 
@@ -185,12 +171,46 @@ header {
   margin-bottom: 16px;
 }
 
-/* サービスセクション（パララックス風背景） */
-.parallax-section {
-  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
-  background-size: 30px 30px; /* ドット背景 */
-  background-attachment: fixed; /* これがパララックス効果 */
-  background-color: #fff;
+/* --- 追加：約400pxのパララックス背景ブロック --- */
+.about-parallax {
+  height: 450px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  /* 画像設定 */
+  background-image: url('about-bg.jpg'); /* ここでお手持ちの画像が読み込まれます */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* 文字を見やすくするためのオーバーレイ */
+.about-parallax::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 43, 91, 0.6); /* ネイビーのフィルター */
+}
+
+.about-content {
+  position: relative;
+  z-index: 1;
+  padding: 0 20px;
+}
+
+.about-content h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin-bottom: 15px;
+}
+
+.about-content p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 /* カード */
@@ -201,12 +221,6 @@ header {
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   height: 100%;
   border: 1px solid var(--line);
-  transition: 0.3s;
-}
-
-.card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 
 .grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
@@ -222,7 +236,6 @@ header {
   align-items: center;
   font-weight: bold;
   border-left: 8px solid var(--accent);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
 
 /* 問い合わせエリア */
@@ -231,7 +244,6 @@ header {
   color: #fff;
   padding: 120px 0;
   border-radius: 80px 80px 0 0;
-  position: relative;
 }
 
 .form-container {
@@ -240,7 +252,6 @@ header {
   background: #fff;
   padding: 50px;
   border-radius: 30px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
 
 .form input, .form textarea {
@@ -250,26 +261,20 @@ header {
   border-radius: 12px;
   margin-bottom: 20px;
   font-family: inherit;
-  font-size: 1rem;
 }
-
-.form textarea { height: 150px; }
-
-.form .btn { width: 100%; }
 
 footer{
   text-align: center;
   padding: 40px 0;
-  color: var(--text-sub);
-  font-size: 0.9rem;
   background: #fff;
 }
 
 @media (max-width: 900px){
   .hero-grid, .grid-2{ grid-template-columns: 1fr; }
-  .hero{ text-align: center; padding: 100px 0; }
+  .hero{ text-align: center; }
   .hero-image { justify-content: center; margin-top: 40px; }
-  .parallax-section { background-attachment: scroll; } /* モバイルでは負荷軽減のため固定解除 */
+  /* モバイルではパララックスを解除（挙動が安定するため） */
+  .about-parallax { background-attachment: scroll; height: 350px; }
 }
 </style>
 </head>
@@ -291,7 +296,7 @@ footer{
       <a class="btn" href="#contact">無料でSEO相談をする</a>
     </div>
     <div class="hero-image">
-      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SEO分析">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SEOイメージ">
     </div>
   </div>
 </section>
@@ -310,15 +315,21 @@ footer{
   </div>
 </section>
 
-<!-- パララックス効果を適用したセクション -->
-<section class="section parallax-section">
+<!-- ★追加：about-bg.jpg を使ったパララックスセクション -->
+<section class="about-parallax">
+  <div class="about-content reveal">
+    <h2>「小手先のテクニック」ではなく、<br>長期的に資産となるサイト構造を。</h2>
+    <p>私たちは、単なる記事制作代行ではありません。検索ユーザーの意図を深く読み解き、貴社の強みが正しく伝わる「設計」を最も大切にしています。</p>
+  </div>
+</section>
+
+<section class="section" style="background:#fff;">
   <div class="container">
     <div class="section-title reveal">
       <span class="en">OUR SERVICE</span>
       <h2>設計型SEOパートナーとして</h2>
     </div>
     <div class="grid-2">
-      <!-- カードに時間差アニメーション（delay）を適用 -->
       <div class="card reveal delay-1">
         <h3>キーワード設計</h3>
         <p>ターゲットの成約意図を逆算。競合分析に基づいた「勝てるテーマ」を厳選します。</p>
@@ -344,7 +355,7 @@ footer{
     <div class="section-title reveal">
       <span class="en" style="color:rgba(255,255,255,0.7)">CONTACT</span>
       <h2 style="color:#fff">無料相談・お問い合わせ</h2>
-      <p style="color:rgba(255,255,255,0.8)">現在のサイト状況を拝見し、専門的な視点でアドバイスさせていただきます。</p>
+      <p style="color:rgba(255,255,255,0.8)">現在のサイト状況を拝見し、アドバイスさせていただきます。</p>
     </div>
 
     <div class="form-container reveal">
@@ -363,9 +374,7 @@ footer{
 </footer>
 
 <script>
-// 改良版スクロールアニメーション
 const revealElements = document.querySelectorAll('.reveal');
-
 const revealOnScroll = () => {
   const windowHeight = window.innerHeight;
   revealElements.forEach((el) => {
@@ -375,7 +384,6 @@ const revealOnScroll = () => {
     }
   });
 };
-
 window.addEventListener('scroll', revealOnScroll);
 window.addEventListener('load', revealOnScroll);
 revealOnScroll();
