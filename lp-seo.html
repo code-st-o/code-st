@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>設計型SEO伴走支援 | 成果に直結するWeb戦略</title>
+<!-- SEOタグ（診断結果反映） -->
+<title>SEO記事制作｜検索意図から設計するWebライター</title>
+<meta name="description" content="SEO記事制作でお困りの企業様へ。検索意図の分析から構成設計まで、成果にこだわるWebライターが貴社のメディア運営をサポートします。">
+
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,22 +41,17 @@ body{
   overflow-x: hidden;
 }
 
-/* --- アニメーション設定 --- */
-.reveal {
+/* ① フェードイン用CSS */
+.fade {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.0s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(30px);
+  transition: opacity 0.8s, transform 0.8s;
 }
 
-.reveal.active {
+.fade.show {
   opacity: 1;
   transform: translateY(0);
 }
-
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.3s; }
-.delay-3 { transition-delay: 0.5s; }
-.delay-4 { transition-delay: 0.7s; }
 
 /* ヘッダー */
 header {
@@ -78,9 +76,17 @@ header {
 
 .logo {
   font-weight: 900;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--primary);
-  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.nav-links a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: bold;
 }
 
 .container{
@@ -92,14 +98,10 @@ header {
 .hero{
   background: linear-gradient(135deg, var(--primary) 0%, #004085 100%);
   color: #fff;
-  padding: 140px 0;
-  position: relative;
-  overflow: hidden;
+  padding: 120px 0;
 }
 
 .hero-grid{
-  position: relative;
-  z-index: 1;
   display: grid;
   grid-template-columns: 1.5fr 0.5fr; 
   gap: 40px;
@@ -107,36 +109,29 @@ header {
 }
 
 .hero-copy h1{
-  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
-  line-height: 1.25;
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  line-height: 1.4;
   margin-bottom: 24px;
-  word-break: keep-all;
+  font-weight: 900;
 }
 
 .hero-copy h1 span{ color: var(--accent); }
 
 .hero-copy p{
-  font-size: 1.2rem;
-  margin-bottom: 40px;
+  font-size: 1.1rem;
+  margin-bottom: 32px;
   opacity: 0.95;
+  line-height: 1.8;
 }
 
-.hero-image { display: flex; justify-content: flex-end; }
 .hero-image img{
   width: 100%;
   max-width: 380px;
-  border-radius: 30px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-  animation: float 6s ease-in-out infinite;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0px); }
-}
-
-/* ボタン */
+/* ② ボタンアニメーション */
 .btn{
   display: inline-block;
   padding: 18px 45px;
@@ -144,98 +139,86 @@ header {
   color: #fff;
   border-radius: 100px;
   font-weight: 700;
-  box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3);
   text-decoration: none;
-  transition: 0.3s;
+  transition: transform 0.3s, background 0.3s;
   border: none;
   cursor: pointer;
+  font-size: 1.1rem;
 }
 
-.btn:hover{
-  transform: translateY(-3px);
+.btn:hover {
+  transform: scale(1.05);
   background: #ff9d26;
 }
 
-/* セクション共通 */
-.section{ padding: 100px 0; }
+/* ③ スクロール誘導リンク */
+.guide-link {
+  color: var(--accent);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.section{ padding: 80px 0; }
 
 .section-title{
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
 .section-title h2{
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
   font-weight: 700;
   color: var(--primary);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
-/* --- 追加：約400pxのパララックス背景ブロック --- */
+/* パララックスブロック */
 .about-parallax {
-  height: 450px;
+  height: 400px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   text-align: center;
-  /* 画像設定 */
-  background-image: url('about-bg.jpg'); /* ここでお手持ちの画像が読み込まれます */
+  background-image: url('about-bg.jpg');
   background-attachment: fixed;
   background-position: center;
-  background-repeat: no-repeat;
   background-size: cover;
 }
 
-/* 文字を見やすくするためのオーバーレイ */
 .about-parallax::before {
   content: "";
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 43, 91, 0.6); /* ネイビーのフィルター */
+  background: rgba(0, 43, 91, 0.6);
 }
 
-.about-content {
-  position: relative;
-  z-index: 1;
-  padding: 0 20px;
-}
-
-.about-content h2 {
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  margin-bottom: 15px;
-}
-
-.about-content p {
-  font-size: 1.1rem;
-  max-width: 700px;
-  margin: 0 auto;
-}
+.about-content { position: relative; z-index: 1; padding: 0 20px; }
 
 /* カード */
 .card{
   background: var(--surface);
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
   height: 100%;
   border: 1px solid var(--line);
 }
 
-.grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+.card h3 { color: var(--primary); margin-top: 0; font-size: 1.3rem; }
+
+.grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 
 /* お悩み項目 */
 .pain-list { max-width: 850px; margin: 0 auto; }
 .pain-item {
   background: #fff;
-  padding: 24px 32px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
+  padding: 20px 25px;
+  border-radius: 15px;
+  margin-bottom: 15px;
   font-weight: bold;
-  border-left: 8px solid var(--accent);
+  border-left: 6px solid var(--accent);
 }
 
 /* 問い合わせエリア */
@@ -243,38 +226,39 @@ header {
   background: var(--primary);
   color: #fff;
   padding: 120px 0;
-  border-radius: 80px 80px 0 0;
+  text-align: center;
+  border-radius: 60px 60px 0 0;
 }
 
-.form-container {
-  max-width: 700px;
+.contact-box {
+  max-width: 800px;
   margin: 0 auto;
-  background: #fff;
-  padding: 50px;
-  border-radius: 30px;
+  padding: 20px;
 }
 
-.form input, .form textarea {
-  width: 100%;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  margin-bottom: 20px;
-  font-family: inherit;
+.contact-box p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  opacity: 0.9;
 }
 
 footer{
   text-align: center;
-  padding: 40px 0;
+  padding: 50px 0;
   background: #fff;
+  border-top: 1px solid var(--line);
 }
 
-@media (max-width: 900px){
-  .hero-grid, .grid-2{ grid-template-columns: 1fr; }
-  .hero{ text-align: center; }
-  .hero-image { justify-content: center; margin-top: 40px; }
-  /* モバイルではパララックスを解除（挙動が安定するため） */
-  .about-parallax { background-attachment: scroll; height: 350px; }
+.footer-links { margin-bottom: 15px; }
+.footer-links a { margin: 0 10px; text-decoration: none; color: var(--primary); font-size: 0.9rem; }
+
+/* ④ スマホ最適化（768px） */
+@media (max-width: 768px) {
+  .hero { padding: 40px 20px; } 
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero-image { display: none; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .about-parallax { background-attachment: scroll; height: 320px; }
 }
 </style>
 </head>
@@ -283,110 +267,121 @@ footer{
 
 <header>
   <div class="header-inner">
-    <div class="logo">SEO STRATEGY</div>
-    <a href="#contact" style="color:var(--accent); font-weight:bold; text-decoration:none;">無料相談はこちら</a>
+    <a href="index.html" class="logo">SEO記事制作サービス</a>
+    <nav class="nav-links">
+      <a href="index.html">ホーム</a>
+      <a href="https://note.com/your_profile" target="_blank">実績(note)</a>
+      <a href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank" class="guide-link">お問い合わせ</a>
+    </nav>
   </div>
 </header>
 
-<section class="hero reveal">
+<section class="hero fade">
   <div class="container hero-grid">
     <div class="hero-copy">
-      <h1>量より<span>構造</span><br>成果に直結する<br>設計型SEO伴走支援</h1>
-      <p>キーワード設計から記事制作、CV導線まで一気通貫。<br>「勝てる構造」を構築する、Web集客のパートナー。</p>
-      <a class="btn" href="#contact">無料でSEO相談をする</a>
+      <h1>
+        貴社のメディアに、<br>
+        確かな<span>成果</span>と<span>構造</span>を。
+      </h1>
+      <p>
+        検索意図を深く読み解き、Webサイトの資産価値を高める。<br>
+        「量より構造」を重視したSEO記事制作を設計から支援するWebライター。
+      </p>
+      <a class="btn" href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank">無料で相談をしてみる</a>
     </div>
     <div class="hero-image">
-      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SEOイメージ">
+      <img src="seo-hero.png" alt="SEO記事制作・検索意図設計を支援するWebライターのイメージ">
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="section-title reveal">
-      <span class="en">PAIN POINTS</span>
-      <h2>こんなお悩みありませんか？</h2>
+    <div class="section-title fade">
+      <h2>SEO記事制作でお困りではありませんか？</h2>
     </div>
-    <div class="pain-list reveal">
-      <div class="pain-item">記事を公開しても、問い合わせや成約に繋がらない</div>
-      <div class="pain-item">SEOを始めたいが、具体的な戦略の立て方がわからない</div>
-      <div class="pain-item">外部に委託しても、記事の品質や方向性が安定しない</div>
+    <div class="pain-list">
+      <div class="pain-item fade">記事を公開しても、問い合わせや成約に繋がらない</div>
+      <div class="pain-item fade">SEOの専門知見を持つライターを探している</div>
+      <div class="pain-item fade">キーワード選定や構成の設計からプロに任せたい</div>
+    </div>
+    <div style="text-align: center; margin-top: 30px;" class="fade">
+      <p>その課題、設計型SEOライターがお力添えします。 <a href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank" class="guide-link">今すぐ相談する</a></p>
     </div>
   </div>
 </section>
 
-<!-- ★追加：about-bg.jpg を使ったパララックスセクション -->
-<section class="about-parallax">
-  <div class="about-content reveal">
+<section class="about-parallax fade">
+  <div class="about-content">
     <h2>「小手先のテクニック」ではなく、<br>長期的に資産となるサイト構造を。</h2>
-    <p>私たちは、単なる記事制作代行ではありません。検索ユーザーの意図を深く読み解き、貴社の強みが正しく伝わる「設計」を最も大切にしています。</p>
+    <p>単なる記事作成の代行ではありません。検索ユーザーの意図を丁寧に読み解き、貴社の強みが正しく伝わる記事設計を最も大切にしています。</p>
   </div>
 </section>
 
 <section class="section" style="background:#fff;">
   <div class="container">
-    <div class="section-title reveal">
-      <span class="en">OUR SERVICE</span>
-      <h2>設計型SEOパートナーとして</h2>
+    <div class="section-title fade">
+      <h2>検索意図から設計するSEO記事制作サービス</h2>
     </div>
     <div class="grid-2">
-      <div class="card reveal delay-1">
+      <div class="card fade">
         <h3>キーワード設計</h3>
-        <p>ターゲットの成約意図を逆算。競合分析に基づいた「勝てるテーマ」を厳選します。</p>
+        <p>ターゲットの成約意図を逆算。競合分析に基づいた「勝てるテーマ」を厳選し、SEO効果を最大化します。</p>
       </div>
-      <div class="card reveal delay-2">
-        <h3>高品質な記事制作</h3>
-        <p>Googleに評価される論理構造を設計。実務経験に基づいた専門性の高いコンテンツを提供します。</p>
+      <div class="card fade">
+        <h3>構成設計・執筆</h3>
+        <p>Googleに評価される論理構造を設計。実務経験を活かした専門性の高い記事制作を行います。</p>
       </div>
-      <div class="card reveal delay-3">
-        <h3>コンバージョン導線改善</h3>
-        <p>記事から資料請求や問い合わせへ自然に繋げるためのUI/UX提案と導線設計を行います。</p>
+      <div class="card fade">
+        <h3>内部リンク導線改善</h3>
+        <p>集客して終わりではありません。記事から成約へ繋げるための導線設計まで対応可能です。</p>
       </div>
-      <div class="card reveal delay-4">
-        <h3>中長期的な伴走支援</h3>
-        <p>一過性の作業で終わらせず、データに基づく改善を継続。御社のWeb資産価値を共に高めます。</p>
+      <div class="card fade">
+        <h3>不動産・専門領域対応</h3>
+        <p>現場経験20年の説得力。専門性の高い業界でも、信頼を勝ち取るSEOライティングが可能です。</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- お問い合わせセクション -->
 <section class="contact-section" id="contact">
-  <div class="container">
-    <div class="section-title reveal">
-      <span class="en" style="color:rgba(255,255,255,0.7)">CONTACT</span>
+  <div class="container fade">
+    <div class="section-title">
       <h2 style="color:#fff">無料相談・お問い合わせ</h2>
-      <p style="color:rgba(255,255,255,0.8)">現在のサイト状況を拝見し、アドバイスさせていただきます。</p>
     </div>
-
-    <div class="form-container reveal">
-      <form class="form" action="https://formspree.io/f/xkovabrp" method="POST">
-        <input name="name" type="text" placeholder="貴社名 / お名前" required />
-        <input name="email" type="email" placeholder="メールアドレス" required />
-        <textarea name="message" placeholder="ご相談内容（現在の課題・目的・ご予算など）" required></textarea>
-        <button class="btn" type="submit">無料相談を申し込む</button>
-      </form>
+    <div class="contact-box">
+      <p>
+        現在のサイト状況の診断や、記事制作に関するお悩みなど、<br>
+        まずはお気軽にお声がけください。
+      </p>
+      <a class="btn" href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank">お問い合わせフォームを開く</a>
     </div>
   </div>
 </section>
 
 <footer>
+  <div class="footer-links fade">
+    <a href="index.html">ホームに戻る</a>
+    <a href="https://note.com/your_profile" target="_blank">記事実績はこちら（note）</a>
+  </div>
   <p>© SEO STRATEGY All Rights Reserved.</p>
 </footer>
 
 <script>
-const revealElements = document.querySelectorAll('.reveal');
-const revealOnScroll = () => {
-  const windowHeight = window.innerHeight;
-  revealElements.forEach((el) => {
-    const elementTop = el.getBoundingClientRect().top;
-    if (elementTop < windowHeight * 0.88) {
-      el.classList.add('active');
+// ① フェードイン用スクリプト
+const elements = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+  elements.forEach(el => {
+    const position = el.getBoundingClientRect().top;
+    if (position < window.innerHeight * 0.9) {
+      el.classList.add('show');
     }
   });
-};
-window.addEventListener('scroll', revealOnScroll);
-window.addEventListener('load', revealOnScroll);
-revealOnScroll();
+});
+
+window.dispatchEvent(new Event('scroll'));
 </script>
 
 </body>
