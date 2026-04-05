@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- SEOタグ（診断結果反映） -->
+<!-- SEO診断反映：タイトルとMetaタグ -->
 <title>SEO記事制作｜検索意図から設計するWebライター</title>
 <meta name="description" content="SEO記事制作でお困りの企業様へ。検索意図の分析から構成設計まで、成果にこだわるWebライターが貴社のメディア運営をサポートします。">
 
@@ -45,13 +45,18 @@ body{
 .fade {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s, transform 0.8s;
+  transition: opacity 1s ease-out, transform 0.8s ease-out;
 }
 
 .fade.show {
   opacity: 1;
   transform: translateY(0);
 }
+
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+.delay-4 { transition-delay: 0.8s; }
 
 /* ヘッダー */
 header {
@@ -76,22 +81,18 @@ header {
 
 .logo {
   font-weight: 900;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--primary);
   text-decoration: none;
+  letter-spacing: -0.02em;
 }
 
 .nav-links a {
-  margin-left: 15px;
+  margin-left: 20px;
   text-decoration: none;
   color: var(--text-main);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: bold;
-}
-
-.container{
-  width: min(100% - 40px, var(--max-width));
-  margin: auto;
 }
 
 /* ヒーローエリア */
@@ -106,6 +107,8 @@ header {
   grid-template-columns: 1.5fr 0.5fr; 
   gap: 40px;
   align-items: center;
+  width: min(100% - 40px, var(--max-width));
+  margin: auto;
 }
 
 .hero-copy h1{
@@ -121,17 +124,22 @@ header {
   font-size: 1.1rem;
   margin-bottom: 32px;
   opacity: 0.95;
-  line-height: 1.8;
 }
 
 .hero-image img{
   width: 100%;
   max-width: 380px;
   border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  animation: float 6s ease-in-out infinite;
 }
 
-/* ② ボタンアニメーション */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+/* ボタン */
 .btn{
   display: inline-block;
   padding: 18px 45px;
@@ -147,78 +155,86 @@ header {
 }
 
 .btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* ②ボタンアニメーション */
   background: #ff9d26;
 }
 
-/* ③ スクロール誘導リンク */
 .guide-link {
   color: var(--accent);
   font-weight: bold;
   text-decoration: underline;
 }
 
-.section{ padding: 80px 0; }
+.section{ padding: 100px 0; }
 
 .section-title{
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
 .section-title h2{
   font-size: clamp(1.6rem, 4vw, 2.2rem);
   font-weight: 700;
   color: var(--primary);
-  margin-bottom: 12px;
 }
 
-/* パララックスブロック */
+/* ★ パララックスブロック（about-bg.jpgを使用・絶対に固定） */
 .about-parallax {
-  height: 400px;
+  height: 500px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   text-align: center;
-  background-image: url('about-bg.jpg');
-  background-attachment: fixed;
+  background-image: url('about-bg.jpg'); /* 指定のJPGファイル */
+  background-attachment: fixed; /* パララックス */
   background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
+  z-index: 1;
 }
 
 .about-parallax::before {
   content: "";
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 43, 91, 0.6);
+  background: rgba(0, 43, 91, 0.65);
+  z-index: 2;
 }
 
-.about-content { position: relative; z-index: 1; padding: 0 20px; }
+.about-content {
+  position: relative;
+  z-index: 3;
+  padding: 0 20px;
+}
 
 /* カード */
 .card{
   background: var(--surface);
-  border-radius: 20px;
-  padding: 35px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   height: 100%;
   border: 1px solid var(--line);
 }
 
-.card h3 { color: var(--primary); margin-top: 0; font-size: 1.3rem; }
+.card h3 { color: var(--primary); margin-top: 0; font-size: 1.4rem; }
 
-.grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
 
 /* お悩み項目 */
 .pain-list { max-width: 850px; margin: 0 auto; }
 .pain-item {
   background: #fff;
-  padding: 20px 25px;
-  border-radius: 15px;
-  margin-bottom: 15px;
+  padding: 24px 32px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
   font-weight: bold;
-  border-left: 6px solid var(--accent);
+  border-left: 8px solid var(--accent);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
 
 /* 問い合わせエリア */
@@ -227,30 +243,24 @@ header {
   color: #fff;
   padding: 120px 0;
   text-align: center;
-  border-radius: 60px 60px 0 0;
+  border-radius: 80px 80px 0 0;
 }
 
 .contact-box {
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
 }
 
-.contact-box p {
-  font-size: 1.2rem;
-  margin-bottom: 40px;
-  opacity: 0.9;
-}
-
+/* フッター（内部リンク維持） */
 footer{
   text-align: center;
-  padding: 50px 0;
+  padding: 60px 0;
   background: #fff;
   border-top: 1px solid var(--line);
 }
 
-.footer-links { margin-bottom: 15px; }
-.footer-links a { margin: 0 10px; text-decoration: none; color: var(--primary); font-size: 0.9rem; }
+.footer-links { margin-bottom: 20px; }
+.footer-links a { margin: 0 15px; text-decoration: none; color: var(--primary); font-size: 0.95rem; font-weight: bold; }
 
 /* ④ スマホ最適化（768px） */
 @media (max-width: 768px) {
@@ -258,7 +268,8 @@ footer{
   .hero-grid { grid-template-columns: 1fr; text-align: center; }
   .hero-image { display: none; }
   .grid-2 { grid-template-columns: 1fr; }
-  .about-parallax { background-attachment: scroll; height: 320px; }
+  /* スマホは固定解除 */
+  .about-parallax { background-attachment: scroll; height: 350px; }
 }
 </style>
 </head>
@@ -267,17 +278,17 @@ footer{
 
 <header>
   <div class="header-inner">
-    <a href="index.html" class="logo">SEO記事制作サービス</a>
+    <a href="index.html" class="logo">SEO STRATEGY</a>
     <nav class="nav-links">
       <a href="index.html">ホーム</a>
       <a href="https://note.com/merry_ivy6817" target="_blank">実績(note)</a>
-      <a href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank" class="guide-link">お問い合わせ</a>
+      <a href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank" style="color:var(--accent);">お問い合わせ</a>
     </nav>
   </div>
 </header>
 
 <section class="hero fade">
-  <div class="container hero-grid">
+  <div class="hero-grid">
     <div class="hero-copy">
       <h1>
         貴社のメディアに、<br>
@@ -290,7 +301,7 @@ footer{
       <a class="btn" href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank">無料で相談をしてみる</a>
     </div>
     <div class="hero-image">
-      <img src="seo-hero.jpg" alt="SEO記事制作・検索意図設計を支援するWebライターのイメージ">
+      <img src="seo-hero.png" alt="SEO記事制作を支援するWebライター">
     </div>
   </div>
 </section>
@@ -311,8 +322,9 @@ footer{
   </div>
 </section>
 
-<section class="about-parallax fade">
-  <div class="about-content">
+<!-- パララックス（セクション自体にfadeをつけないのがコツです） -->
+<section class="about-parallax">
+  <div class="about-content fade">
     <h2>「小手先のテクニック」ではなく、<br>長期的に資産となるサイト構造を。</h2>
     <p>単なる記事作成の代行ではありません。検索ユーザーの意図を丁寧に読み解き、貴社の強みが正しく伝わる記事設計を最も大切にしています。</p>
   </div>
@@ -324,19 +336,19 @@ footer{
       <h2>検索意図から設計するSEO記事制作サービス</h2>
     </div>
     <div class="grid-2">
-      <div class="card fade">
+      <div class="card fade delay-1">
         <h3>キーワード設計</h3>
         <p>ターゲットの成約意図を逆算。競合分析に基づいた「勝てるテーマ」を厳選し、SEO効果を最大化します。</p>
       </div>
-      <div class="card fade">
+      <div class="card fade delay-2">
         <h3>構成設計・執筆</h3>
         <p>Googleに評価される論理構造を設計。実務経験を活かした専門性の高い記事制作を行います。</p>
       </div>
-      <div class="card fade">
+      <div class="card fade delay-3">
         <h3>内部リンク導線改善</h3>
         <p>集客して終わりではありません。記事から成約へ繋げるための導線設計まで対応可能です。</p>
       </div>
-      <div class="card fade">
+      <div class="card fade delay-4">
         <h3>不動産・専門領域対応</h3>
         <p>現場経験20年の説得力。専門性の高い業界でも、信頼を勝ち取るSEOライティングが可能です。</p>
       </div>
@@ -344,7 +356,6 @@ footer{
   </div>
 </section>
 
-<!-- お問い合わせセクション -->
 <section class="contact-section" id="contact">
   <div class="container fade">
     <div class="section-title">
@@ -363,25 +374,27 @@ footer{
 <footer>
   <div class="footer-links fade">
     <a href="index.html">ホームに戻る</a>
-    <a href="https://note.com/merry_ivy6817" target="_blank">記事実績はこちら（note）</a>
+    <a href="https://note.com/merry_ivy6817" target="_blank">執筆実績はこちら（note）</a>
   </div>
   <p>© SEO STRATEGY All Rights Reserved.</p>
 </footer>
 
 <script>
-// ① フェードイン用スクリプト
+// ① フェードイン用スクリプト（指定通り）
 const elements = document.querySelectorAll('.fade');
 
-window.addEventListener('scroll', () => {
+const handleScroll = () => {
   elements.forEach(el => {
     const position = el.getBoundingClientRect().top;
     if (position < window.innerHeight * 0.9) {
       el.classList.add('show');
     }
   });
-});
+};
 
-window.dispatchEvent(new Event('scroll'));
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('load', handleScroll);
+handleScroll(); 
 </script>
 
 </body>
