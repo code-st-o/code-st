@@ -12,6 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@700&display=swap" rel="stylesheet">
 
   <style>
+    /* -----------------------------------------
+       Variables & Base
+    ----------------------------------------- */
     :root {
       --bg-dark: #05070b;
       --bg-navy: #0a131d;
@@ -30,56 +33,78 @@
     body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Noto Sans JP', sans-serif; line-height: 1.8; overflow-x: hidden; }
     .container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
     a { color: inherit; text-decoration: none; transition: 0.3s; }
-    li { list-style: none; }
+    img { max-width: 100%; height: auto; display: block; }
 
+    /* Header */
     .site-header {
       height: 80px; display: flex; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000;
-      background: rgba(5, 7, 11, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+      background: rgba(5, 7, 11, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
     }
     .header-inner { width: 100%; display: flex; justify-content: space-between; align-items: center; }
-    .brand { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; }
+    .brand { font-size: 1.4rem; font-weight: 700; letter-spacing: 2px; }
     .site-nav ul { display: flex; gap: 32px; }
     .site-nav a { font-size: 0.9rem; color: var(--text-sub); }
     .site-nav a:hover { color: var(--text-main); }
 
-    .hero { padding-top: 80px; background: #000; position: relative; }
+    /* Hero */
+    .hero { padding-top: 80px; background: var(--bg-dark); position: relative; z-index: 50; }
     .hero-frame { max-width: 1200px; margin: 0 auto; }
-    .hero-assist { padding: 40px 0 80px; text-align: center; }
-    .hero-assist strong { color: #fff; display: block; font-size: 1.4rem; margin-bottom: 8px; }
+    .hero-assist { padding: 40px 0 80px; text-align: center; background: var(--bg-dark); }
+    .hero-assist strong { color: #fff; display: block; font-size: 1.2rem; margin-bottom: 24px; letter-spacing: 0.1em; }
 
-    .section { padding: 120px 0; position: relative; }
+    /* Section Common (Solid background ensures no leakage) */
+    .section-solid { padding: 120px 0; position: relative; z-index: 50; background: var(--bg-dark); }
     .section-bg { background: var(--bg-navy); }
     .sec-eyebrow { font-size: 0.8rem; color: var(--accent-blue); letter-spacing: 0.3em; font-weight: 700; margin-bottom: 16px; display: block; text-transform: uppercase; }
-    .sec-title { font-family: var(--font-mincho); font-size: 2.4rem; margin-bottom: 60px; line-height: 1.4; }
+    .sec-title { font-family: var(--font-mincho); font-size: 2.2rem; margin-bottom: 60px; line-height: 1.4; }
 
-    .btn { display: inline-block; padding: 18px 36px; border-radius: 4px; font-weight: 700; transition: 0.3s; cursor: pointer; border: none; text-align: center; }
-    .btn-primary { background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light)); color: #000; box-shadow: 0 4px 20px rgba(243, 152, 0, 0.4); }
-    .btn-outline { border: 1px solid var(--border); color: #fff; }
-    .btn:hover { transform: translateY(-3px); opacity: 0.95; }
-
-    .parallax-wrapper {
+    /* -----------------------------------------
+       Smartphone-Compatible Parallax
+    ----------------------------------------- */
+    .parallax-container {
       position: relative;
+      z-index: 10; /* Lower than solid sections */
+      overflow: hidden;
+    }
+    .parallax-bg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    }
+    .parallax-bg-inner {
+      position: fixed; /* Fixes background for both PC and Mobile */
+      top: 0; left: 0; width: 100%; height: 100%;
       background-image: url('about-bg.jpg');
-      background-attachment: fixed;
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
-      z-index: 1;
     }
-    .parallax-wrapper::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 11, 0.8); z-index: -1; }
+    .parallax-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(5, 7, 11, 0.8); z-index: 0;
+    }
+    .parallax-content { position: relative; z-index: 1; }
 
+    /* Services & Message inside Parallax */
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-    .service-card { background: rgba(10, 19, 29, 0.85); padding: 48px; border: 1px solid var(--border); border-top: 4px solid var(--accent-blue); backdrop-filter: blur(8px); }
+    .service-card { 
+      background: rgba(10, 19, 29, 0.85); padding: 48px; border: 1px solid var(--border); border-top: 4px solid var(--accent-blue);
+      backdrop-filter: blur(8px);
+    }
     .service-link { color: var(--accent-gold); font-size: 0.9rem; font-weight: 700; margin-top: 24px; display: block; }
+    .quote-area { padding: 120px 0; text-align: center; }
+    .quote-text { font-family: var(--font-mincho); font-size: 2.2rem; color: #fff; line-height: 1.5; }
 
-    /* LP CTA Section */
+    /* -----------------------------------------
+       LP CTA Block (Restored)
+    ----------------------------------------- */
     .lp-cta-block {
       background: linear-gradient(90deg, #0a131d, #16222a);
-      padding: 80px 0; border-y: 1px solid var(--border); text-align: center; margin: 40px 0;
+      padding: 100px 0; text-align: center; border-y: 1px solid var(--border);
+      position: relative; z-index: 50;
     }
-    .lp-cta-content h2 { font-family: var(--font-mincho); font-size: 2rem; margin-bottom: 24px; }
-    .lp-cta-content p { color: var(--text-sub); margin-bottom: 32px; }
+    .lp-cta-block h2 { font-family: var(--font-mincho); font-size: 2rem; margin-bottom: 20px; }
+    .lp-cta-block p { margin-bottom: 40px; color: var(--text-sub); font-size: 1.1rem; }
 
+    /* Works Grid (6 items) */
     .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 24px; }
     .work-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
     .work-card:hover { border-color: var(--accent-blue); transform: translateY(-5px); }
@@ -87,22 +112,32 @@
     .work-thumb strong { font-family: var(--font-mincho); font-size: 1rem; }
     .work-body { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; }
     .work-tag { font-size: 0.7rem; color: var(--accent-blue); font-weight: 700; margin-bottom: 12px; }
-    .work-title { font-size: 1.1rem; margin-bottom: 16px; line-height: 1.4; }
+    .work-title { font-size: 1.05rem; margin-bottom: 16px; line-height: 1.4; }
 
+    /* Contact Form */
     .contact-box { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; }
     .form { background: var(--bg-navy); padding: 48px; border-radius: 8px; border: 1px solid var(--border); }
-    .form input, .form textarea { width: 100%; background: #05070b; border: 1px solid var(--border); color: #fff; padding: 14px; margin-bottom: 24px; border-radius: 4px; }
+    .form input, .form textarea { width: 100%; background: #05070b; border: 1px solid var(--border); color: #fff; padding: 14px; margin-bottom: 24px; border-radius: 4px; font-size: 1rem; }
 
-    .site-footer { padding: 60px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-sub); font-size: 0.85rem; }
+    /* Buttons */
+    .btn { display: inline-block; padding: 18px 36px; border-radius: 4px; font-weight: 700; transition: 0.3s; border: none; cursor: pointer; text-align: center; }
+    .btn-primary { background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light)); color: #000; box-shadow: 0 4px 15px rgba(243, 152, 0, 0.4); }
+    .btn-outline { border: 1px solid var(--border); color: #fff; }
+    .btn:hover { transform: translateY(-3px); opacity: 0.9; }
 
+    .site-footer { padding: 60px 0; border-top: 1px solid var(--border); text-align: center; background: var(--bg-dark); position: relative; z-index: 50; color: var(--text-sub); font-size: 0.85rem; }
+
+    /* Animation */
     .reveal { opacity: 0; transform: translateY(30px); transition: 1.2s ease-out; }
     .reveal.active { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 992px) {
+      .hero-assist strong { font-size: 1.1rem; }
       .services-grid, .works-grid, .contact-box { grid-template-columns: 1fr; }
       .site-nav { display: none; }
-      .section { padding: 80px 0; }
-      .parallax-wrapper { background-attachment: scroll; }
+      .sec-title { font-size: 1.8rem; }
+      .quote-text { font-size: 1.6rem; }
+      .section-solid { padding: 80px 0; }
     }
   </style>
 </head>
@@ -123,138 +158,142 @@
   </header>
 
   <main>
-    <!-- Hero -->
+    <!-- Hero (Always Solid Top Layer) -->
     <section class="hero" id="top">
       <div class="hero-frame reveal">
-        <img src="ChatGPT Image 2026年7月11日 14_25_20.png" alt="CODE-ST">
+        <img src="ChatGPT Image 2026年7月11日 14_25_20.png" alt="CODE-ST メインバナー">
       </div>
       <div class="hero-assist container reveal">
-        <p><strong>根拠ある言葉で心を動かす。専門特化のライティング。</strong></p>
+        <strong>根拠ある言葉で心を動かす。専門特化のライティング。</strong>
         <div style="display: flex; gap: 20px; justify-content: center;">
-          <!-- LPへのメインリンク -->
           <a href="https://code-st-o.github.io/code-st/lp-seo.html" class="btn btn-primary">SEO記事制作の詳細を見る</a>
           <a href="#contact" class="btn btn-outline">制作のご相談</a>
         </div>
       </div>
     </section>
 
-    <!-- Profile -->
-    <section id="about" class="section section-bg">
+    <!-- About -->
+    <section id="about" class="section-solid section-bg">
       <div class="container reveal">
         <span class="sec-eyebrow">Profile</span>
         <h2 class="sec-title">確かなバックボーンが創り出す<br>「言葉の重み」</h2>
         <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px;">
           <div>
-            <h3 style="font-size: 1.6rem; margin-bottom: 24px; color: var(--accent-blue);">実務知見 × 国家資格の専門性</h3>
-            <p>単なる「執筆」作業ではなく、プロとしてのビジネスリテラシーと、緻密なファクトチェック能力が強みです。不動産をはじめ、どのジャンルにおいても「根拠のある文章」を徹底し、メディアの「信頼」を蓄積します。</p>
+            <h3 style="color: var(--accent-blue); margin-bottom: 20px; font-size: 1.5rem;">実務知見 × 国家資格の専門性</h3>
+            <p>単なる「執筆」作業ではなく、プロとしてのビジネスリテラシーと、緻密なファクトチェック能力が最大の強みです。不動産をはじめ、どのジャンルにおいても「根拠のある文章」を徹底。メディアの信頼性を最大化します。</p>
           </div>
           <div style="background: rgba(255,255,255,0.03); padding: 32px; border: 1px solid var(--border);">
             <h4 style="color: var(--accent-gold-light); margin-bottom: 12px;">執筆領域</h4>
-            <p style="font-size: 0.9rem;">不動産・住宅・リフォーム全般 / ビジネス・戦略 / 資産形成・相続 / ライフプランニング</p>
+            <p style="font-size: 0.9rem; line-height: 1.6;">不動産・住宅・リフォーム全般 / ビジネス・キャリア・戦略 / 資産形成・ライフプランニング</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Parallax Wrapper -->
-    <div class="parallax-wrapper">
-      <section id="services" class="section">
-        <div class="container reveal">
-          <span class="sec-eyebrow">Services</span>
-          <h2 class="sec-title">集客・成約・信頼を創るコンテンツ</h2>
-          <div class="services-grid">
-            <div class="service-card">
-              <h3>SEO記事制作</h3>
-              <p>検索意図を深く読み解き、上位表示と高い満足度を両立。構成案から執筆まで完結させます。</p>
-              <!-- サービス詳細からのLPリンク -->
-              <a href="https://code-st-o.github.io/code-st/lp-seo.html" class="service-link">→ サービス内容を詳しく見る</a>
-            </div>
-            <div class="service-card">
-              <h3>リライト・監修</h3>
-              <p>情報のアップデート、SEO観点でのブラッシュアップ、資格者としての監修を承ります。</p>
-            </div>
-            <div class="service-card">
-              <h3>セールスライティング</h3>
-              <p>PR記事やサービス紹介など、ベネフィットを言語化し行動を促す原稿を制作します。</p>
+    <!-- Parallax Wrapper (Services to Quote Only) -->
+    <div class="parallax-container">
+      <div class="parallax-bg"><div class="parallax-bg-inner"></div></div>
+      <div class="parallax-overlay"></div>
+      
+      <div class="parallax-content">
+        <section id="services" class="section-solid" style="background: transparent;">
+          <div class="container reveal">
+            <span class="sec-eyebrow">Services</span>
+            <h2 class="sec-title">集客・成約・信頼を創るコンテンツ</h2>
+            <div class="services-grid">
+              <div class="service-card">
+                <h3>SEO記事制作</h3>
+                <p>検索意図を深く読み解き、上位表示と高い満足度を両立。構成案から執筆まで完結させます。</p>
+                <a href="https://code-st-o.github.io/code-st/lp-seo.html" class="service-link">→ サービス詳細を見る</a>
+              </div>
+              <div class="service-card">
+                <h3>リライト・監修</h3>
+                <p>情報のアップデート、SEO観点でのブラッシュアップ、資格者としての監修を承ります。</p>
+              </div>
+              <div class="service-card">
+                <h3>セールスライティング</h3>
+                <p>PR記事やサービス紹介など、ベネフィットを言語化し行動を促す原稿を制作します。</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- LP案内CTA（新規追加） -->
-      <div class="lp-cta-block reveal">
-        <div class="container lp-cta-content">
-          <h2>検索順位の、その先へ。</h2>
-          <p>集客からお問い合わせまでを綿密に設計する、SEO記事制作の専門ページはこちら。</p>
-          <a href="https://code-st-o.github.io/code-st/lp-seo.html" class="btn btn-primary">SEO制作LPを見る</a>
+        <!-- 指定されたメッセージ（一文のみ） -->
+        <div class="quote-area container reveal">
+          <h2 class="quote-text">書く前に、成果への道筋を設計する。</h2>
         </div>
       </div>
     </div>
 
-    <!-- Works (6件) -->
-    <section id="works" class="section section-bg">
+    <!-- LP CTA Block (Restored as requested) -->
+    <div class="lp-cta-block reveal">
+      <div class="container">
+        <h2>検索順位の、その先へ。</h2>
+        <p>集客からお問い合わせまでを綿密に設計する、SEO記事制作の専門ページはこちら。</p>
+        <a href="https://code-st-o.github.io/code-st/lp-seo.html" class="btn btn-primary">SEO制作LPを見る</a>
+      </div>
+    </div>
+
+    <!-- Works (Solid background) -->
+    <section id="works" class="section-solid section-bg">
       <div class="container reveal">
         <span class="sec-eyebrow">Works</span>
         <h2 class="sec-title">設計意図が見える執筆事例</h2>
-        
         <div class="works-grid">
           <article class="work-card">
-            <div class="work-thumb"><strong>賃貸初期費用</strong><small>相場と内訳</small></div>
+            <div class="work-thumb"><strong>初期費用</strong></div>
             <div class="work-body">
               <span class="work-tag">不動産 / 解説</span>
               <h3 class="work-title">賃貸の初期費用はいくら？相場と内訳</h3>
-              <a href="https://note.com/merry_ivy6817/n/n53ccaccfb184" class="btn btn-outline" target="_blank">記事を確認</a>
+              <a href="https://note.com/merry_ivy6817/n/n53ccaccfb184" class="btn btn-outline" style="font-size:0.75rem;" target="_blank">記事を確認</a>
             </div>
           </article>
           <article class="work-card">
-            <div class="work-thumb" style="background: linear-gradient(135deg, #2c3e50, #000);"><strong>賃貸特約</strong><small>有効・無効の境界線</small></div>
+            <div class="work-thumb" style="background: linear-gradient(135deg, #2c3e50, #000);"><strong>賃貸特約</strong></div>
             <div class="work-body">
               <span class="work-tag">法務 / 宅建士</span>
               <h3 class="work-title">賃貸特約の見方｜有効・無効の境界線</h3>
-              <a href="https://note.com/merry_ivy6817/n/n85cbea74b5dd" class="btn btn-outline" target="_blank">記事を確認</a>
+              <a href="https://note.com/merry_ivy6817/n/n85cbea74b5dd" class="btn btn-outline" style="font-size:0.75rem;" target="_blank">記事を確認</a>
             </div>
           </article>
           <article class="work-card">
-            <div class="work-thumb"><strong>賃貸vs購入</strong><small>相続・投資の視点</small></div>
+            <div class="work-thumb"><strong>賃貸vs購入</strong></div>
             <div class="work-body">
               <span class="work-tag">住宅 / 分析</span>
-              <h3 class="work-title">賃貸vs購入どっちが得？相続・投資の視点</h3>
-              <a href="https://note.com/merry_ivy6817/n/n1859886c29ca" class="btn btn-outline" target="_blank">記事を確認</a>
+              <h3 class="work-title">賃貸vs購入どっちが得？相続・投資</h3>
+              <a href="https://note.com/merry_ivy6817/n/n1859886c29ca" class="btn btn-outline" style="font-size:0.75rem;" target="_blank">記事を確認</a>
             </div>
           </article>
-        </div>
-
-        <div class="works-grid" style="margin-top: 24px;">
           <article class="work-card">
-            <div class="work-thumb" style="background: linear-gradient(135deg, #1e3c72, #2a5298);"><strong>和の美学</strong><small>現代住宅への活用</small></div>
+            <div class="work-thumb" style="background: linear-gradient(135deg, #1e3c72, #2a5298);"><strong>和の美学</strong></div>
             <div class="work-body">
               <span class="work-tag">建築 / コラム</span>
-              <h3 class="work-title">和の美学を現代住宅へ活かすアプローチ</h3>
-              <a href="https://note.com/merry_ivy6817/n/n7f7b638521ce" class="btn btn-outline" target="_blank">記事を確認</a>
+              <h3 class="work-title">和の美学を現代住宅へ活かす</h3>
+              <a href="https://note.com/merry_ivy6817/n/n7f7b638521ce" class="btn btn-outline" style="font-size:0.75rem;" target="_blank">記事を確認</a>
             </div>
           </article>
           <article class="work-card">
-            <div class="work-thumb"><strong>おとり広告</strong><small>言い訳の正体</small></div>
+            <div class="work-thumb"><strong>おとり広告</strong></div>
             <div class="work-body">
               <span class="work-tag">不動産 / SEO</span>
               <h3 class="work-title">不動産「おとり広告」｜言い訳の正体</h3>
-              <a href="https://note.com/merry_ivy6817/n/n9b45351850d2" class="btn btn-outline" target="_blank">記事を確認</a>
+              <a href="https://note.com/merry_ivy6817/n/n9b45351850d2" class="btn btn-outline" style="font-size:0.75rem;" target="_blank">記事を確認</a>
             </div>
           </article>
           <article class="work-card">
-            <div class="work-thumb" style="background: linear-gradient(135deg, #f39c12, #d35400);"><strong>Kirei One</strong><small>PRコンテンツ</small></div>
+            <div class="work-thumb" style="background: linear-gradient(135deg, #f39c12, #d35400);"><strong>Kirei One</strong></div>
             <div class="work-body">
               <span class="work-tag">PR / セールス</span>
-              <h3 class="work-title">家の困りごとを解決｜Kirei Oneとは？</h3>
-              <a href="https://note.com/merry_ivy6817/n/n92b11036b8ee" class="btn btn-outline" target="_blank">記事を確認</a>
+              <h3 class="work-title">家の困りごとを解決｜Kirei One</h3>
+              <a href="https://note.com/merry_ivy6817/n/n92b11036b8ee" class="btn btn-outline" style="font-size:0.75rem;" target="_blank">記事を確認</a>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" class="section">
+    <!-- Contact (Solid Layer) -->
+    <section id="contact" class="section-solid">
       <div class="container reveal">
         <span class="sec-eyebrow">Contact</span>
         <h2 class="sec-title">制作の相談・お見積り</h2>
@@ -274,16 +313,12 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">
-      <small>&copy; CODE-ST All Rights Reserved.</small>
-    </div>
+    <p>&copy; CODE-ST All Rights Reserved.</p>
   </footer>
 
   <script>
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
