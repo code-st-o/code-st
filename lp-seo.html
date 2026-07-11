@@ -1,401 +1,310 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- SEO診断反映：タイトルとMetaタグ -->
-<title>SEO記事制作｜検索意図から設計するWebライター</title>
-<meta name="description" content="SEO記事制作でお困りの企業様へ。検索意図の分析から構成設計まで、成果にこだわるWebライターが貴社のメディア運営をサポートします。">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05070b">
+  <title>SEO記事制作・構成作成｜検索意図からお問い合わせまで設計する code-st</title>
+  <meta name="description" content="検索順位だけでは終わらせない。不動産業界20年・宅建士の知見を活かし、検索意図の分析からCV導線まで一貫対応。成果を設計するSEOライティング。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@700&display=swap" rel="stylesheet">
 
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* -----------------------------------------
+       Variables & Base
+    ----------------------------------------- */
+    :root {
+      --bg-dark: #05070b;
+      --bg-navy: #0a131d;
+      --accent-blue: #00a0e9;
+      --accent-gold: #f39800;
+      --accent-gold-light: #ffb400;
+      --text-main: #ffffff;
+      --text-sub: #a0aab7;
+      --border: rgba(255, 255, 255, 0.1);
+      --container: 1100px;
+      --font-mincho: 'Shippori Mincho', serif;
+    }
 
-<style>
-:root{
-  --primary: #002B5B;
-  --accent: #FF8C00;
-  --bg-light: #F8FAFC;
-  --surface: #ffffff;
-  --text-main: #2D3436;
-  --text-sub: #636E72;
-  --line: #E2E8F0;
-  --max-width: 1100px;
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Noto Sans JP', sans-serif; line-height: 1.75; overflow-x: hidden; }
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; transition: 0.3s; }
 
-*{
-  box-sizing: border-box;
-}
+    /* -----------------------------------------
+       Header
+    ----------------------------------------- */
+    .site-header {
+      height: 80px; display: flex; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000;
+      background: rgba(5, 7, 11, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    }
+    .header-inner { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; }
+    .desktop-nav { display: flex; gap: 32px; }
+    .desktop-nav a { font-size: 0.9rem; color: var(--text-sub); }
+    .desktop-nav a:hover { color: var(--text-main); }
+    .header-cta { border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 8px 20px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; }
 
-html {
-  scroll-behavior: smooth;
-}
+    /* -----------------------------------------
+       Hero
+    ----------------------------------------- */
+    .hero { padding-top: 80px; background: #000; position: relative; }
+    .hero-frame { max-width: 1200px; margin: 0 auto; }
+    .hero-assist { padding: 40px 0 80px; text-align: center; }
+    .hero-assist strong { color: #fff; display: block; font-size: 1.4rem; margin-bottom: 8px; }
 
-body{
-  margin: 0;
-  font-family: 'Noto Sans JP', sans-serif;
-  background: var(--bg-light);
-  color: var(--text-main);
-  line-height: 1.8;
-  overflow-x: hidden;
-}
+    /* Trust Strip */
+    .trust-strip { background: var(--bg-navy); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 30px 0; }
+    .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+    .trust-grid strong { display: block; font-size: 1.4rem; color: var(--accent-blue); }
 
-/* ① フェードイン用CSS */
-.fade {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1s ease-out, transform 0.8s ease-out;
-}
+    /* -----------------------------------------
+       Parallax Section (Value to Works)
+    ----------------------------------------- */
+    .parallax-wrapper {
+      position: relative;
+      background-image: url('about-bg.jpg'); /* ここに新しい画像を差し込みます */
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+    /* 背景を少し暗くして文字を読みやすくするオーバーレイ */
+    .parallax-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(5, 7, 11, 0.75); /* 暗さの調整 */
+      z-index: -1;
+    }
 
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .section { padding: 120px 0; }
+    .eyebrow { display: block; font-size: 0.85rem; color: var(--accent-blue); letter-spacing: 0.3em; margin-bottom: 16px; font-weight: 700; }
+    h2 { font-family: var(--font-mincho); font-size: 2.4rem; line-height: 1.4; margin-bottom: 24px; }
+    .section-heading-center { text-align: center; margin-bottom: 80px; }
 
-.delay-1 { transition-delay: 0.2s; }
-.delay-2 { transition-delay: 0.4s; }
-.delay-3 { transition-delay: 0.6s; }
-.delay-4 { transition-delay: 0.8s; }
+    /* Value Section */
+    .definition {
+      margin-top: 40px; padding: 60px; background: rgba(15, 23, 33, 0.6);
+      border: 1px solid var(--border); text-align: center; border-radius: 4px; backdrop-filter: blur(5px);
+    }
+    .definition-main { font-size: 2rem; font-family: var(--font-mincho); margin: 20px 0; }
+    .definition-main em { font-style: normal; color: var(--accent-blue); }
 
-/* ヘッダー */
-header {
-  background: rgba(255, 255, 255, 0.9);
-  height: 70px;
-  display: flex;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  backdrop-filter: blur(10px);
-}
+    /* Service Cards */
+    .service-showcase { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; }
+    .service-main { background: rgba(10, 19, 29, 0.8); padding: 50px; border-top: 4px solid var(--accent-blue); }
+    .service-side article { background: rgba(255,255,255,0.05); padding: 30px; border: 1px solid var(--border); margin-bottom: 20px; }
 
-.header-inner {
-  width: min(100% - 40px, var(--max-width));
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    /* Works Grid */
+    .works-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .work-card { background: rgba(15, 23, 33, 0.8); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .work-thumb {
+      height: 160px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      background: linear-gradient(135deg, rgba(22, 34, 42, 0.9), rgba(58, 96, 115, 0.9)); padding: 20px; text-align: center;
+    }
+    .work-body { padding: 32px; }
 
-.logo {
-  font-weight: 900;
-  font-size: 1.3rem;
-  color: var(--primary);
-  text-decoration: none;
-  letter-spacing: -0.02em;
-}
+    /* -----------------------------------------
+       FAQ & Contact
+    ----------------------------------------- */
+    .section-light { background: #0a0e14; }
+    .faq-item { background: var(--bg-navy); border: 1px solid var(--border); margin-bottom: 16px; }
+    .faq-item summary { padding: 24px; font-weight: 700; cursor: pointer; list-style: none; position: relative; }
+    .faq-item summary::after { content: '+'; position: absolute; right: 24px; color: var(--accent-blue); }
+    .faq-item p { padding: 0 24px 24px; color: var(--text-sub); }
 
-.nav-links a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: var(--text-main);
-  font-size: 0.9rem;
-  font-weight: bold;
-}
+    .button { display: inline-block; padding: 18px 48px; border-radius: 4px; font-weight: 700; font-size: 1.1rem; transition: 0.3s; cursor: pointer; border: none; }
+    .button-gold { background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light)); color: #000; }
+    
+    .contact-form { background: var(--bg-navy); padding: 48px; border-radius: 8px; border: 1px solid var(--border); }
+    .contact-form input, .contact-form textarea { width: 100%; background: #05070b; border: 1px solid var(--border); color: #fff; padding: 12px; margin-top: 8px; margin-bottom: 24px; }
 
-/* ヒーローエリア */
-.hero{
-  background: linear-gradient(135deg, var(--primary) 0%, #004085 100%);
-  color: #fff;
-  padding: 120px 0;
-}
+    .mobile-fixed-cta { display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 1500; }
+    .mobile-fixed-cta a { background: var(--accent-gold); color: #000; text-align: center; display: block; padding: 16px; border-radius: 50px; font-weight: 700; }
 
-.hero-grid{
-  display: grid;
-  grid-template-columns: 1.5fr 0.5fr; 
-  gap: 40px;
-  align-items: center;
-  width: min(100% - 40px, var(--max-width));
-  margin: auto;
-}
+    .reveal { opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
 
-.hero-copy h1{
-  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
-  line-height: 1.4;
-  margin-bottom: 24px;
-  font-weight: 900;
-}
-
-.hero-copy h1 span{ color: var(--accent); }
-
-.hero-copy p{
-  font-size: 1.1rem;
-  margin-bottom: 32px;
-  opacity: 0.95;
-}
-
-.hero-image img{
-  width: 100%;
-  max-width: 380px;
-  border-radius: 24px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-}
-
-/* ボタン */
-.btn{
-  display: inline-block;
-  padding: 18px 45px;
-  background: var(--accent);
-  color: #fff;
-  border-radius: 100px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: transform 0.3s, background 0.3s;
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-}
-
-.btn:hover {
-  transform: scale(1.05); /* ②ボタンアニメーション */
-  background: #ff9d26;
-}
-
-.guide-link {
-  color: var(--accent);
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-.section{ padding: 100px 0; }
-
-.section-title{
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.section-title h2{
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
-  font-weight: 700;
-  color: var(--primary);
-}
-
-/* ★ パララックスブロック（about-bg.jpgを使用・絶対に固定） */
-.about-parallax {
-  height: 500px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  text-align: center;
-  background-image: url('about-bg.jpg'); /* 指定のJPGファイル */
-  background-attachment: fixed; /* パララックス */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: 1;
-}
-
-.about-parallax::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 43, 91, 0.65);
-  z-index: 2;
-}
-
-.about-content {
-  position: relative;
-  z-index: 3;
-  padding: 0 20px;
-}
-
-/* カード */
-.card{
-  background: var(--surface);
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  height: 100%;
-  border: 1px solid var(--line);
-}
-
-.card h3 { color: var(--primary); margin-top: 0; font-size: 1.4rem; }
-
-.grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-
-/* お悩み項目 */
-.pain-list { max-width: 850px; margin: 0 auto; }
-.pain-item {
-  background: #fff;
-  padding: 24px 32px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  border-left: 8px solid var(--accent);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-}
-
-/* 問い合わせエリア */
-.contact-section {
-  background: var(--primary);
-  color: #fff;
-  padding: 120px 0;
-  text-align: center;
-  border-radius: 80px 80px 0 0;
-}
-
-.contact-box {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* フッター（内部リンク維持） */
-footer{
-  text-align: center;
-  padding: 60px 0;
-  background: #fff;
-  border-top: 1px solid var(--line);
-}
-
-.footer-links { margin-bottom: 20px; }
-.footer-links a { margin: 0 15px; text-decoration: none; color: var(--primary); font-size: 0.95rem; font-weight: bold; }
-
-/* ④ スマホ最適化（768px） */
-@media (max-width: 768px) {
-  .hero { padding: 40px 20px; } 
-  .hero-grid { grid-template-columns: 1fr; text-align: center; }
-  .hero-image { display: none; }
-  .grid-2 { grid-template-columns: 1fr; }
-  /* スマホは固定解除 */
-  .about-parallax { background-attachment: scroll; height: 350px; }
-}
-</style>
+    @media (max-width: 992px) {
+      .service-showcase, .works-grid { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: 1fr 1fr; }
+      .desktop-nav, .header-cta { display: none; }
+      .mobile-fixed-cta { display: block; }
+      .parallax-wrapper { background-attachment: scroll; } /* モバイルではパララックスを無効化（挙動安定のため） */
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <div class="header-inner">
-    <a href="index.html" class="logo">SEO STRATEGY</a>
-    <nav class="nav-links">
-      <a href="index.html">ホーム</a>
-      <a href="https://note.com/merry_ivy6817" target="_blank">実績(note)</a>
-      <a href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank" style="color:var(--accent);">お問い合わせ</a>
-    </nav>
-  </div>
-</header>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">code-st</a>
+      <nav class="desktop-nav">
+        <a href="#value">提供価値</a>
+        <a href="#services">サービス</a>
+        <a href="#works">実績</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="header-cta" href="#contact">無料で相談する</a>
+    </div>
+  </header>
 
-<section class="hero fade">
-  <div class="hero-grid">
-    <div class="hero-copy">
-      <h1>
-        貴社のメディアに<br>
-        確かな<span>成果</span>と<span>構造</span>を。
-      </h1>
-      <p>
-        検索意図を深く読み解き、Webサイトの資産価値を高める。<br>
-        「量より構造」を重視したSEO記事制作を設計から支援するWebライター。
-      </p>
-      <a class="btn" href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank">無料で相談をしてみる</a>
-    </div>
-    <div class="hero-image">
-      <img src="seo-hero.jpg" alt="SEO記事制作を支援するWebライター">
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="section-title fade">
-      <h2>SEO記事制作でお困りではありませんか？</h2>
-    </div>
-    <div class="pain-list">
-      <div class="pain-item fade">記事を公開しても、問い合わせや成約に繋がらない</div>
-      <div class="pain-item fade">SEOの専門知見を持つライターを探している</div>
-      <div class="pain-item fade">キーワード選定や構成の設計からプロに任せたい</div>
-    </div>
-    <div style="text-align: center; margin-top: 30px;" class="fade">
-      <p>その課題、設計型SEOライターがお力添えします。 <a href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank" class="guide-link">今すぐ相談する</a></p>
-    </div>
-  </div>
-</section>
-
-<!-- パララックス（セクション自体にfadeをつけないのがコツです） -->
-<section class="about-parallax">
-  <div class="about-content fade">
-    <h2>「小手先のテクニック」ではなく<br>長期的に資産となるサイト構造を。</h2>
-    <p>単なる記事作成の代行ではありません。検索ユーザーの意図を丁寧に読み解き、貴社の強みが正しく伝わる記事設計を最も大切にしています。</p>
-  </div>
-</section>
-
-<section class="section" style="background:#fff;">
-  <div class="container">
-    <div class="section-title fade">
-      <h2>検索意図から設計するSEO記事制作サービス</h2>
-    </div>
-    <div class="grid-2">
-      <div class="card fade delay-1">
-        <h3>キーワード設計</h3>
-        <p>ターゲットの成約意図を逆算。競合分析に基づいた「勝てるテーマ」を厳選し、SEO効果を最大化します。</p>
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-frame">
+        <img src="ChatGPT Image 2026年7月11日 14_25_20.png" alt="code-st 検索順位だけでは終わらせない" fetchpriority="high">
       </div>
-      <div class="card fade delay-2">
-        <h3>構成設計・執筆</h3>
-        <p>Googleに評価される論理構造を設計。実務経験を活かした専門性の高い記事制作を行います。</p>
+      <div class="hero-assist container">
+        <p><strong>課題が整理できていない段階からご相談いただけます。</strong></p>
+        <a class="button button-gold" href="#contact">無料で相談する →</a>
       </div>
-      <div class="card fade delay-3">
-        <h3>内部リンク導線改善</h3>
-        <p>集客して終わりではありません。記事から成約へ繋げるための導線設計まで対応可能です。</p>
+    </section>
+
+    <section class="trust-strip">
+      <div class="container trust-grid">
+        <div><strong>約20年</strong><span>不動産実務経験</span></div>
+        <div><strong>宅建保有</strong><span>情報の正確性</span></div>
+        <div><strong>構成重視</strong><span>意図の設計</span></div>
+        <div><strong>CV導線</strong><span>成果への執着</span></div>
       </div>
-      <div class="card fade delay-4">
-        <h3>不動産・専門領域対応</h3>
-        <p>現場経験20年の説得力。専門性の高い業界でも、信頼を勝ち取るSEOライティングが可能です。</p>
+    </section>
+
+    <!-- ここからパララックス区間 -->
+    <div class="parallax-wrapper">
+      
+      <!-- Value Section -->
+      <section class="section" id="value">
+        <div class="container">
+          <div class="section-heading-center reveal">
+            <span class="eyebrow">SEO ARCHITECT</span>
+            <h2>書く前に、成果への道筋を設計する。</h2>
+            <div class="definition">
+              <p class="eyebrow">POSITIONING</p>
+              <p class="definition-main">文章を書く人ではなく、<br><em>検索からお問い合わせまでを組み立てる人。</em></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Service Section -->
+      <section class="section" id="services" style="padding-top: 0;">
+        <div class="container">
+          <div class="section-heading-center reveal">
+            <span class="eyebrow">SERVICES</span>
+            <h2>現在の体制に合わせ、柔軟に対応します。</h2>
+          </div>
+          <div class="service-showcase">
+            <article class="service-main reveal">
+              <h3>SEO記事制作</h3>
+              <p>意図を踏まえた構成から、専門性と読みやすさを両立した本文まで一括制作します。</p>
+              <ul style="list-style:none; margin-top:20px;">
+                <li>✓ 検索意図・競合分析</li>
+                <li>✓ 見出し構成の設計</li>
+                <li>✓ 本文執筆・推敲</li>
+              </ul>
+            </article>
+            <div class="service-side">
+              <article class="reveal"><h3>SEO構成作成</h3><p>成果の出る設計図のみを作成します。</p></article>
+              <article class="reveal"><h3>リライト・改善</h3><p>既存記事の導線を最適化します。</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Works Section -->
+      <section class="section" id="works" style="padding-top: 0;">
+        <div class="container">
+          <div class="section-heading-center reveal">
+            <span class="eyebrow">WORKS</span>
+            <h2>設計意図が見える制作実績。</h2>
+          </div>
+          <div class="works-grid">
+            <article class="work-card reveal">
+              <div class="work-thumb"><strong>賃貸トラブル</strong><small>事例と対策</small></div>
+              <div class="work-body">
+                <h3>【賃貸トラブル】繁忙期に多い事例と対策</h3>
+                <a href="https://note.com/merry_ivy6817/n/n526fb288dc2a" target="_blank" style="color:var(--accent-gold-light)">記事を見る ↗</a>
+              </div>
+            </article>
+            <article class="work-card reveal">
+              <div class="work-thumb"><strong>賃貸か購入か</strong><small>多角的な比較</small></div>
+              <div class="work-body">
+                <h3>【徹底比較】賃貸か購入か、どっちが得？</h3>
+                <a href="https://note.com/merry_ivy6817/n/n1859886c29ca" target="_blank" style="color:var(--accent-gold-light)">記事を見る ↗</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </div> <!-- パララックス区間終了 -->
+
+    <!-- FAQ Section -->
+    <section class="section section-light" id="faq">
+      <div class="container">
+        <div class="section-heading-center reveal">
+          <span class="eyebrow">FAQ</span>
+          <h2>よくある質問</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item reveal">
+            <summary>構成作成だけでも依頼できますか？</summary>
+            <p>はい。検索意図の整理から見出し構成の作成まで対応可能です。</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>不動産以外のジャンルも相談できますか？</summary>
+            <p>はい。住宅・リフォーム・ビジネス等、責任を持って対応可能な範囲でお引き受けします。</p>
+          </details>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="contact-section" id="contact">
-  <div class="container fade">
-    <div class="section-title">
-      <h2 style="color:#fff">無料相談・お問い合わせ</h2>
-    </div>
-    <div class="contact-box">
-      <p>
-        現在のサイト状況の診断や、記事制作に関するお悩みなど、<br>
-        まずはお気軽にお声がけください。
-      </p>
-      <a class="btn" href="https://forms.gle/dQfw9dndEWchBaC2A" target="_blank">お問い合わせフォームを開く</a>
-    </div>
-  </div>
-</section>
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-heading-center reveal">
+          <span class="eyebrow">CONTACT</span>
+          <h2>まずは記事の課題をお聞かせください。</h2>
+        </div>
+        <form class="contact-form reveal">
+          <label>氏名<input type="text" name="name" required></label>
+          <label>メールアドレス<input type="email" name="email" required></label>
+          <label>ご相談内容<textarea name="message" rows="6" required></textarea></label>
+          <button class="button button-gold" type="submit" style="width:100%">無料で相談する →</button>
+        </form>
+      </div>
+    </section>
+  </main>
 
-<footer>
-  <div class="footer-links fade">
-    <a href="index.html">ホームに戻る</a>
-    <a href="https://note.com/merry_ivy6817" target="_blank">執筆実績はこちら（note）</a>
-  </div>
-  <p>© SEO STRATEGY All Rights Reserved.</p>
-</footer>
+  <footer style="padding: 40px 0; text-align: center; border-top: 1px solid var(--border);">
+    <p>© code-st. All Rights Reserved.</p>
+  </footer>
 
-<script>
-// ① フェードイン用スクリプト（指定通り）
-const elements = document.querySelectorAll('.fade');
+  <div class="mobile-fixed-cta"><a href="#contact">無料で相談する →</a></div>
 
-const handleScroll = () => {
-  elements.forEach(el => {
-    const position = el.getBoundingClientRect().top;
-    if (position < window.innerHeight * 0.9) {
-      el.classList.add('show');
-    }
-  });
-};
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-window.addEventListener('scroll', handleScroll);
-window.addEventListener('load', handleScroll);
-handleScroll(); 
-</script>
-
+    const form = document.querySelector('.contact-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = `氏名: ${form.name.value}\nメール: ${form.email.value}\n内容: ${form.message.value}`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('内容をコピーしました。Googleフォームへ貼り付けて送信してください。');
+        window.open('https://forms.gle/dQfw9dndEWchBaC2A', '_blank');
+      });
+    });
+  </script>
 </body>
 </html>
